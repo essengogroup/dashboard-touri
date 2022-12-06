@@ -16,7 +16,7 @@ COPY package*.json .
 COPY . .
 
 RUN npm install
-RUN npm i -g @angular/cli@14.2.10
+RUN npm i -g @angular/cli@14.2.5
 
 EXPOSE $PORT
 

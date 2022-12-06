@@ -8,8 +8,7 @@ import {RegisterComponent} from "./components/register/register.component";
 import {ProfileComponent} from "./components/profile/profile.component";
 
 const routes: Routes = [
-  {path: '', redirectTo: '/', pathMatch: 'full' },
-  {path:'index',redirectTo:'/'},
+  {path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   {path:'',title:'home',component:AppComponent,
     children:[
       {path:'dashboard',title:'dashboard',component:DashboardComponent},

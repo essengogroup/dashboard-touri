@@ -7,7 +7,11 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 Run for a dev server.
 
 ```
-ng serve
+docker compose up 
+```
+or 
+```
+docker compose up -d 
 ```
 Navigate to `http://localhost:4200/`
 

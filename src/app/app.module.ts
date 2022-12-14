@@ -7,10 +7,14 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HomeComponent } from './components/home/home.component';
 import { StoreModule } from '@ngrx/store';
 import { NotFoundComponent } from './components/not-found/not-found.component';
-import {FormBuilder, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {AuthInterceptor} from "./shared/auth.interceptor";
+import {DashboardModule} from "./module/dashboard/dashboard.module";
+import { HeaderComponent } from './components-models/header/header.component';
 
 @NgModule({
   declarations: [
@@ -20,16 +24,25 @@ import { ProfileComponent } from './components/profile/profile.component';
     NotFoundComponent,
     LoginComponent,
     RegisterComponent,
-    ProfileComponent
+    ProfileComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     StoreModule.forRoot({}, {}),
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+    DashboardModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

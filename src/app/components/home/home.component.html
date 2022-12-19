@@ -1,1 +1,22 @@
-<p>home works!</p>
+<p (click)="goToAnotherPage('user')">Users : {{(users$|async)?.data?.length}}</p>
+{{users$|async|json}}
+<!-- Activites -->
+<br>
+<br>
+<p (click)="goToAnotherPage('activite')">Activites : {{(activites$|async)?.data?.length}}</p>
+{{activites$|async|json}}
+<!-- Departements -->
+<br>
+<br>
+<p (click)="goToAnotherPage('departement')">Departements : {{(departement$|async)?.data?.length}}</p>
+{{departement$|async|json}}
+<!-- Media -->
+<br>
+<br>
+<p (click)="goToAnotherPage('media')">Medias : {{(media$|async)?.data?.length}}</p>
+{{media$|async|json}}
+<!-- Reservation -->
+<br>
+<br>
+<p (click)="goToAnotherPage('reservation')">Reservations : {{(reservation$|async)?.data?.length}}</p>
+{{reservation$|async|json}}

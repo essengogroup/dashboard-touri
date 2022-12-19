@@ -3,9 +3,9 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor, HttpErrorResponse
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {catchError, Observable, throwError} from 'rxjs';
 import {AuthService} from "../service/auth.service";
 
 @Injectable()
@@ -22,6 +22,16 @@ export class AuthInterceptor implements HttpInterceptor {
         ContentType: "application/json"
       }
     });
-    return next.handle(request);
+    return next.handle(request).pipe(
+      catchError(err => {
+      if (err instanceof HttpErrorResponse &&  [401,403].includes(err.status) ) {
+        // auto logout if 401 or 403 response returned from api
+        this.authService.doLogout();
+      }
+
+      const error = (err && err.error && err.error.message) || err.statusText;
+      console.error(err);
+      return throwError(error);
+    }));
   }
 }

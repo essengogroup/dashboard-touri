@@ -53,11 +53,17 @@ export class ProfileComponent implements OnInit,OnDestroy {
     console.log(this.profileForm.value);
 
     const user : User={
+      id:this.currentUser.id,
       full_name: this.profileForm.value.lastName+' '+this.profileForm.value.firstName,
       address: this.profileForm.value.address,
       phone: this.profileForm.value.phone
     } as User;
 
+    this.userService.updateUser(user).subscribe({
+      next: (data:Root<User>)=>{
+        console.log(data);
+      }
+    });
 
   }
 

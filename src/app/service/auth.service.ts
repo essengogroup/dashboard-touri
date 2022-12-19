@@ -53,6 +53,7 @@ export class AuthService {
   }
 
   setUserToLocalStorage(user:User):void {
+    localStorage.removeItem('user');
     localStorage.setItem('user', JSON.stringify(user));
   }
 

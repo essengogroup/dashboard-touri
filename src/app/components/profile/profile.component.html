@@ -1,5 +1,5 @@
 <section class="container mx-auto">
-  <h3>Sign-In</h3>
+  <h3>Profile</h3>
   <form (ngSubmit)="onSubmit()" [formGroup]="profileForm" class="w-1/2">
     <div *ngFor="let aliase of aliases" class="flex flex-col mx-4">
       <label for="{{aliase}}" class="mx-2">{{aliase | uppercase }}</label>

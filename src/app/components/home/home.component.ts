@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {UserService} from "../../service/user.service";
 import {User} from "../../model/user";
 import {Root} from "../../model/root";
-import {Observable, Subscription} from "rxjs";
+import {Observable, Subscription, tap} from "rxjs";
 import {ActiviteService} from "../../service/activite.service";
 import {Activite} from "../../model/activite";
 import {Departement} from "../../model/departement";
@@ -20,6 +20,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class HomeComponent implements OnInit , OnDestroy{
   users$!:Observable<Root<User[]>>
+  departements:Departement[]=[];
   activites$!:Observable<Root<Activite[]>>
   departement$!:Observable<Root<Departement[]>>;
   media$!:Observable<Root<Media[]>>;
@@ -39,7 +40,7 @@ export class HomeComponent implements OnInit , OnDestroy{
   ngOnInit(): void {
     this.users$=this.userService.getUsers();
     this.activites$=this.activiteService.getActivites();
-    this.departement$=this.departementService.getDepartements();
+    this.departement$=this.departementService.getDepartements().pipe(tap((data)=>this.departements=data.data));
     this.media$=this.mediaService.getMedias();
     this.reservation$=this.reservationService.getReservations();
   }

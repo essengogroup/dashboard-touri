@@ -1,0 +1,11 @@
+<section>
+  <input type="file" [name]="inputName" [multiple]="multiples" accept="image/*" (change)="selectFile($event)">
+  <section>
+    <ul *ngIf="uploadedFiles.length">
+      <li *ngFor="let file of uploadedFiles">
+        <img [src]="file.src" [title]="file.name" alt="{{file.name}}" class="rounded"> {{file.name}}
+      </li>
+    </ul>
+  </section>
+</section>
+

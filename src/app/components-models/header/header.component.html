@@ -1,24 +1,54 @@
-<header class="text-gray-600 body-font">
-  <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-    <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0" [routerLink]="['']">
-      <span class="ml-3 text-xl">Touri-Touri</span>
-    </a>
-    <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
-      <a class="mr-5 hover:text-gray-900" routerLinkActive="active" [routerLink]="['']">Accueil</a>
-      <a class="mr-5 hover:text-gray-900" routerLinkActive="active" [routerLink]="['user']">Utilisateurs</a>
-      <a class="mr-5 hover:text-gray-900" routerLinkActive="active" [routerLink]="['departement']">Departement</a>
-      <a class="mr-5 hover:text-gray-900" routerLinkActive="active" [routerLink]="['site']">Site</a>
-      <a class="mr-5 hover:text-gray-900" routerLinkActive="active" [routerLink]="['activite']">Activite</a>
-      <a class="mr-5 hover:text-gray-900" routerLinkActive="active" [routerLink]="['media']">Media</a>
-      <a class="mr-5 hover:text-gray-900" routerLinkActive="active" [routerLink]="['reservation']">Reservation</a>
-      <a class="mr-5 hover:text-gray-900" routerLinkActive="active" [routerLink]="['profile']" *ngIf="authService.isLoggedIn">Mon profile</a>
-    </nav>
-    <a *ngIf="!authService.isLoggedIn" [routerLink]="['/sign-in']" class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
-      Se connecter
-    </a>
-    <a *ngIf="authService.isLoggedIn" (click)="authService.doLogout()" class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
-      Se deconnecter
-    </a>
-
+<nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" [routerLink]="['']">Touri-Touri</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" [routerLink]="['']">Accueil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['user']">Utilisateur</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['site']">Site</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['departement']">departement</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['activite']">Activites</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['media']">Medias</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['reservation']">Reservation</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['profile']" *ngIf="authService.isLoggedIn">Mon profile</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled">Disabled</a>
+        </li>
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
   </div>
-</header>
+</nav>

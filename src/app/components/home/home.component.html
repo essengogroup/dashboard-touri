@@ -1,5 +1,28 @@
 <p (click)="goToAnotherPage('user')">Users : {{(users$|async)?.data?.length}}</p>
-{{users$|async|json}}
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Country</th>
+    <th scope="col">description</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let user of departements; index as i">
+    <th scope="row">{{ i + 1 }}</th>
+    <td>
+      <img
+        src="{{user.image_path}}"
+        class="me-2"
+        style="width: 20px"
+      />
+      {{ user.name }}
+    </td>
+    <td>{{ user.description  }}</td>
+  </tr>
+  </tbody>
+</table>
 <!-- Activites -->
 <br>
 <br>

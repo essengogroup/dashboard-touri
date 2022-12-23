@@ -15,6 +15,13 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthInterceptor} from "./shared/auth.interceptor";
 import {DashboardModule} from "./module/dashboard/dashboard.module";
 import { HeaderComponent } from './components-models/header/header.component';
+import { DepartementComponent } from './components/departement/departement.component';
+import { UserComponent } from './components/user/user.component';
+import { MediaComponent } from './components/media/media.component';
+import { SortPipe } from './shared/sort.pipe';
+import { ReservationComponent } from './components/reservation/reservation.component';
+import { SiteComponent } from './components/site/site.component';
+import { ActiviteComponent } from './components/activite/activite.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +32,14 @@ import { HeaderComponent } from './components-models/header/header.component';
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
-    HeaderComponent
+    HeaderComponent,
+    DepartementComponent,
+    UserComponent,
+    MediaComponent,
+    SortPipe,
+    ReservationComponent,
+    SiteComponent,
+    ActiviteComponent
   ],
   imports: [
     BrowserModule,

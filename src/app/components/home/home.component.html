@@ -1,28 +1,5 @@
 <p (click)="goToAnotherPage('user')">Users : {{(users$|async)?.data?.length}}</p>
-
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th scope="col">#</th>
-    <th scope="col">Country</th>
-    <th scope="col">description</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let user of departements; index as i">
-    <th scope="row">{{ i + 1 }}</th>
-    <td>
-      <img
-        src="{{user.image_path}}"
-        class="me-2"
-        style="width: 20px"
-      />
-      {{ user.name }}
-    </td>
-    <td>{{ user.description  }}</td>
-  </tr>
-  </tbody>
-</table>
+{{users$|async|json}}
 <!-- Activites -->
 <br>
 <br>
@@ -43,3 +20,9 @@
 <br>
 <p (click)="goToAnotherPage('reservation')">Reservations : {{(reservation$|async)?.data?.length}}</p>
 {{reservation$|async|json}}
+
+<!-- Reservation -->
+<br>
+<br>
+<p (click)="goToAnotherPage('site')">Sites : {{(site$|async)?.data?.length}}</p>
+{{site$|async|json}}

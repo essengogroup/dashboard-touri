@@ -12,6 +12,8 @@ import {MediaService} from "../../service/media.service";
 import {ReservationService} from "../../service/reservation.service";
 import {Reservation} from "../../model/reservation";
 import {ActivatedRoute, Router} from "@angular/router";
+import {Site} from "../../model/site";
+import {SiteService} from "../../service/site.service";
 
 @Component({
   selector: 'app-home',
@@ -19,13 +21,20 @@ import {ActivatedRoute, Router} from "@angular/router";
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit , OnDestroy{
-  users$!:Observable<Root<User[]>>
-  departements:Departement[]=[];
-  activites$!:Observable<Root<Activite[]>>
+  users$!:Observable<Root<User[]>>;
+  activites$!:Observable<Root<Activite[]>>;
   departement$!:Observable<Root<Departement[]>>;
   media$!:Observable<Root<Media[]>>;
   reservation$!:Observable<Root<Reservation[]>>;
+  site$!:Observable<Root<Site[]>>;
   subscription:Subscription=new Subscription();
+
+  users:User[]=[];
+  activites:Activite[]=[];
+  departements:Departement[]=[];
+  medias:Media[]=[];
+  reservations:Reservation[]=[];
+  sites:Site[]=[];
 
   constructor(
     private route:ActivatedRoute,
@@ -34,15 +43,17 @@ export class HomeComponent implements OnInit , OnDestroy{
     private activiteService:ActiviteService,
     private departementService:DepartementService,
     private mediaService:MediaService,
-    private reservationService:ReservationService
+    private reservationService:ReservationService,
+    private siteService:SiteService
   ) { }
 
   ngOnInit(): void {
-    this.users$=this.userService.getUsers();
-    this.activites$=this.activiteService.getActivites();
-    this.departement$=this.departementService.getDepartements().pipe(tap((data)=>this.departements=data.data));
-    this.media$=this.mediaService.getMedias();
-    this.reservation$=this.reservationService.getReservations();
+    this.users$=this.userService.getUsers().pipe(tap((res:Root<User[]>)=>this.users=res.data));
+    this.activites$=this.activiteService.getActivites().pipe(tap((res:Root<Activite[]>)=>this.activites=res.data));
+    this.departement$=this.departementService.getDepartements().pipe(tap((res:Root<Departement[]>)=>this.departements=res.data));
+    this.media$=this.mediaService.getMedias().pipe(tap((res:Root<Media[]>)=>this.medias=res.data));
+    this.reservation$=this.reservationService.getReservations().pipe(tap((res:Root<Reservation[]>)=>this.reservations=res.data));
+    this.site$=this.siteService.getSites().pipe(tap((res:Root<Site[]>)=>this.sites=res.data));
   }
 
   ngOnDestroy(): void {

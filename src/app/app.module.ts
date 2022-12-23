@@ -21,7 +21,12 @@ import { MediaComponent } from './components/media/media.component';
 import { SortPipe } from './shared/sort.pipe';
 import { ReservationComponent } from './components/reservation/reservation.component';
 import { SiteComponent } from './components/site/site.component';
-import { ActiviteComponent } from './components/activite/activite.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {ActiviteComponent} from "./components/activite/activite.component";
+import {AddUpdateDepartementComponent} from "./modal/add-update-departement/add-update-departement.component";
+import {UploadComponent} from "./components-models/upload/upload.component";
+import { UserModelComponent } from './components-models/user-model/user-model.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -39,7 +44,10 @@ import { ActiviteComponent } from './components/activite/activite.component';
     SortPipe,
     ReservationComponent,
     SiteComponent,
-    ActiviteComponent
+    ActiviteComponent,
+    AddUpdateDepartementComponent,
+    UploadComponent,
+    UserModelComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +56,9 @@ import { ActiviteComponent } from './components/activite/activite.component';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    DashboardModule
+    DashboardModule,
+    BrowserAnimationsModule,
+    NgbModule,
   ],
   providers: [
     {

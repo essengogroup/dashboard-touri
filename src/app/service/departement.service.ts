@@ -21,4 +21,10 @@ export class DepartementService {
     return this.httpClient.get<Root<Departement>>(`${this.BASE_URL}/${id}`)
   }
 
+  createDepartement(departement:Departement):Observable<any>{
+    return this.httpClient.post<Root<Departement>>(`${this.BASE_URL}`,departement,{
+      reportProgress: true,
+      observe: 'events'});
+  }
+
 }

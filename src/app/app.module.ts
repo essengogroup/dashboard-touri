@@ -27,6 +27,11 @@ import {AddUpdateDepartementComponent} from "./modal/add-update-departement/add-
 import {UploadComponent} from "./components-models/upload/upload.component";
 import { UserModelComponent } from './components-models/user-model/user-model.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AddUpdateUserComponent } from './modal/add-update-user/add-update-user.component';
+import { AddUpdateSiteComponent } from './modal/add-update-site/add-update-site.component';
+import { AddUpdateReservationComponent } from './modal/add-update-reservation/add-update-reservation.component';
+import { AddUpdateMediaComponent } from './modal/add-update-media/add-update-media.component';
+import { AddUpdateActiviteComponent } from './modal/add-update-activite/add-update-activite.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +52,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ActiviteComponent,
     AddUpdateDepartementComponent,
     UploadComponent,
-    UserModelComponent
+    UserModelComponent,
+    AddUpdateUserComponent,
+    AddUpdateSiteComponent,
+    AddUpdateReservationComponent,
+    AddUpdateMediaComponent,
+    AddUpdateActiviteComponent
   ],
   imports: [
     BrowserModule,

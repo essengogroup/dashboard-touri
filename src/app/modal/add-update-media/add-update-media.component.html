@@ -1,0 +1,11 @@
+<section class="container mx-auto">
+  <h3>Media</h3>
+  <form (ngSubmit)="onSubmit()" [formGroup]="mediaForm" class="w-1/2" enctype="multipart/form-data">
+    <div *ngFor="let aliase of alias" class="flex flex-col mx-4">
+      <label for="{{aliase}}" class="mx-2">{{aliase | uppercase }}</label>
+      <input id="{{aliase}}" formControlName="{{aliase}}" required class="border border-gray-400">
+    </div>
+    <app-upload (fileEmitter)="getFile($event)"></app-upload>
+    <button type="submit" [disabled]="!mediaForm.valid">Ajouter</button>
+  </form>
+</section>

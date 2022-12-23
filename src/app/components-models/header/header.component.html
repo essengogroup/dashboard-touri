@@ -7,42 +7,28 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" [routerLink]="['']">Accueil</a>
+          <a class="nav-link" routerLinkActive="active" [routerLink]="['']">Accueil</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['user']">Utilisateur</a>
+          <a class="nav-link" routerLinkActive="active" [routerLink]="['user']">Utilisateur</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['site']">Site</a>
+          <a class="nav-link" routerLinkActive="active" [routerLink]="['site']">Site</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['departement']">departement</a>
+          <a class="nav-link" routerLinkActive="active" [routerLink]="['departement']">departement</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['activite']">Activites</a>
+          <a class="nav-link" routerLinkActive="active" [routerLink]="['activite']">Activites</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['media']">Medias</a>
+          <a class="nav-link" routerLinkActive="active" [routerLink]="['media']">Medias</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['reservation']">Reservation</a>
+          <a class="nav-link" routerLinkActive="active" [routerLink]="['reservation']">Reservation</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['profile']" *ngIf="authService.isLoggedIn">Mon profile</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled">Disabled</a>
+          <a class="nav-link" routerLinkActive="active" [routerLink]="['profile']" *ngIf="authService.isLoggedIn">Mon profile</a>
         </li>
       </ul>
       <form class="d-flex" role="search">

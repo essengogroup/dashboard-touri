@@ -1,2 +1,13 @@
-<app-header></app-header>
-<router-outlet></router-outlet>
+<div class="wrapper">
+    <app-sidebar></app-sidebar>
+    <div class="main">
+        <app-navbar></app-navbar>
+        <main class="content">
+            <div class="container-fluid p-0">
+                <router-outlet></router-outlet>
+            </div>   
+        </main>
+    </div>
+</div>
+
+

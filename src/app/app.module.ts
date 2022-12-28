@@ -32,6 +32,8 @@ import { AddUpdateSiteComponent } from './modal/add-update-site/add-update-site.
 import { AddUpdateReservationComponent } from './modal/add-update-reservation/add-update-reservation.component';
 import { AddUpdateMediaComponent } from './modal/add-update-media/add-update-media.component';
 import { AddUpdateActiviteComponent } from './modal/add-update-activite/add-update-activite.component';
+import { SidebarComponent } from './components-models/sidebar/sidebar.component';
+import { NavbarComponent } from './components-models/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,9 @@ import { AddUpdateActiviteComponent } from './modal/add-update-activite/add-upda
     AddUpdateSiteComponent,
     AddUpdateReservationComponent,
     AddUpdateMediaComponent,
-    AddUpdateActiviteComponent
+    AddUpdateActiviteComponent,
+    SidebarComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

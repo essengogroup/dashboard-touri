@@ -1,1 +1,15 @@
-<router-outlet></router-outlet>
+<div class="wrapper">
+    <!-- navbar -->
+    <app-topbar></app-topbar>
+    <!-- main sidebar -->
+    <app-sidebar></app-sidebar>
+    <!-- Content Wraper -->
+    <div class="content-wrapper">
+        <router-outlet></router-outlet>
+    </div>
+    <!-- Control sidebar -->
+    <app-assidebar></app-assidebar>
+    <!-- Main footer -->
+    <app-footer></app-footer>
+</div>
+

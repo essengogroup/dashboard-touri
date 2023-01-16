@@ -13,6 +13,8 @@ or
 ```
 docker compose up -d 
 ```
+npm install admin-lte@^3.2 --save
+
 Navigate to `http://localhost:4200/`
 
 ## Code scaffolding

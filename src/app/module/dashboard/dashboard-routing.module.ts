@@ -8,9 +8,11 @@ import {UserComponent} from "../../components/user/user.component";
 import {ReservationComponent} from "../../components/reservation/reservation.component";
 import {SiteComponent} from "../../components/site/site.component";
 import {ActiviteComponent} from "../../components/activite/activite.component";
+import {OthersComponent} from "../../components/others/others.component";
 
 const routes: Routes = [
-  {path:'',title:'dashboard-home',component:HomeComponent},
+  {path:'',redirectTo:'home',pathMatch:'full'},
+  {path:'home',title:'dashboard-home',component:HomeComponent},
   {path:'user',title:'user',component:UserComponent},
   {path:'departement',title:'departement',component:DepartementComponent},
   {path:'site',title:'site',component:SiteComponent},
@@ -18,6 +20,7 @@ const routes: Routes = [
   {path:'media',title:'media',component:MediaComponent},
   {path:'reservation',title:'reservation',component:ReservationComponent},
   {path:'profile',title:'profile',component:ProfileComponent},
+  {path:'others',title:'others',component:OthersComponent},
   { path: '**', redirectTo: '/not-found' }
 ];
 

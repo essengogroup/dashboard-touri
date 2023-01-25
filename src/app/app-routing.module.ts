@@ -9,7 +9,7 @@ import {DashboardComponent} from "./components/dashboard/dashboard.component";
 const routes: Routes = [
   {path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   {path:'sign-in',title:'login',component:LoginComponent},
-  {path:'signup',title:'register',component:RegisterComponent},
+  {path:'sign-up',title:'register',component:RegisterComponent},
   {path:'dashboard',title:'home',component:DashboardComponent,canActivate: [AuthGuard],
     children:[
       {path:'',title:'dashboard',loadChildren: () => import('./module/dashboard/dashboard.module').then(m => m.DashboardModule)},

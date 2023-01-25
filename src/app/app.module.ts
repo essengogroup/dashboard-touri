@@ -32,6 +32,11 @@ import { AddUpdateSiteComponent } from './modal/add-update-site/add-update-site.
 import { AddUpdateReservationComponent } from './modal/add-update-reservation/add-update-reservation.component';
 import { AddUpdateMediaComponent } from './modal/add-update-media/add-update-media.component';
 import { AddUpdateActiviteComponent } from './modal/add-update-activite/add-update-activite.component';
+import { SidebarComponent } from './components-models/sidebar/sidebar.component';
+import { OthersComponent } from './components/others/others.component';
+import { TruncatePipe } from './shared/truncate.pipe';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { FilterPipe } from './shared/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -57,7 +62,11 @@ import { AddUpdateActiviteComponent } from './modal/add-update-activite/add-upda
     AddUpdateSiteComponent,
     AddUpdateReservationComponent,
     AddUpdateMediaComponent,
-    AddUpdateActiviteComponent
+    AddUpdateActiviteComponent,
+    SidebarComponent,
+    OthersComponent,
+    TruncatePipe,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
@@ -69,6 +78,7 @@ import { AddUpdateActiviteComponent } from './modal/add-update-activite/add-upda
     DashboardModule,
     BrowserAnimationsModule,
     NgbModule,
+    NgxPaginationModule
   ],
   providers: [
     {

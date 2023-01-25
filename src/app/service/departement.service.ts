@@ -27,4 +27,14 @@ export class DepartementService {
       observe: 'events'});
   }
 
+  updateDepartement(departement:Departement):Observable<any>{
+    return this.httpClient.put<Root<Departement>>(`${this.BASE_URL}/${departement.id}`,departement,{
+      reportProgress: true,
+      observe: 'events'});
+  }
+
+  deleteDepartement(id:number):Observable<any>{
+    return this.httpClient.delete<Root<Departement>>(`${this.BASE_URL}/${id}`)
+  }
+
 }

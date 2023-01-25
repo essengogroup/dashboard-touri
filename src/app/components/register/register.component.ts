@@ -13,13 +13,11 @@ export class RegisterComponent implements OnInit,OnDestroy {
   registerForm:FormGroup;
   subscription:Subscription;
 
-  aliases: string[] = ['lastName','firstName','email','password','password_confirmation'];
-
   constructor(private formBuilder:FormBuilder, private authService:AuthService) {
     this.registerForm = this.formBuilder.group({
       lastName: ['',[Validators.required]],
       firstName: ['',[Validators.required]],
-      email: ['',[Validators.required]],
+      email: ['',[Validators.required,Validators.email]],
       password: ['',[Validators.required]],
       password_confirmation: ['',[Validators.required]]
     });

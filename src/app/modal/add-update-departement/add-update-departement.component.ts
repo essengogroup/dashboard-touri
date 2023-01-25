@@ -12,11 +12,9 @@ import {HttpEvent, HttpEventType} from "@angular/common/http";
 })
 export class AddUpdateDepartementComponent implements OnInit,OnDestroy {
 
-  departementForm:FormGroup;
-
-  aliases:string[] = ['name', 'description'];
-
-  departement:Departement;
+  departementForm!:FormGroup;
+  action:string ='';
+  departement!:Departement;
   file:any[] = [];
 
   constructor(
@@ -24,16 +22,26 @@ export class AddUpdateDepartementComponent implements OnInit,OnDestroy {
     private ref: DynamicDialogRef,
     private config: DynamicDialogConfig,
     private departementService:DepartementService
-  ) {
-    this.departement = this.config.data;
+  ) {}
 
-    this.departementForm = this.formBuilder.group({
-      name: [this.departement.name??'', [Validators.required]],
-      description: [this.departement.description??'', [Validators.required]]
-    });
-  }
 
   ngOnInit(): void {
+    this.departement = this.config.data.departement;
+    this.action = this.config.data.action;
+
+    if(this.action==='update'){
+      this.departementForm = this.formBuilder.group({
+        name: [this.departement.name, Validators.required],
+        description: [this.departement.description, Validators.required],
+      });
+    }
+
+    if(this.action==='add'){
+      this.departementForm = this.formBuilder.group({
+        name: ['', [Validators.required]],
+        description: ['', [Validators.required]]
+      });
+    }
   }
 
   ngOnDestroy() {
@@ -49,28 +57,58 @@ export class AddUpdateDepartementComponent implements OnInit,OnDestroy {
     this.departement.description = this.departementForm.value.description;
     this.departement.image_path =this.file[0].src;
 
-    this.departementService.createDepartement(this.departement).subscribe(
-      (event: HttpEvent<any>) => {
-        switch (event.type) {
-          case HttpEventType.Sent:
-            console.log('Request has been made!');
-            break;
-          case HttpEventType.ResponseHeader:
-            console.log('Response header has been received!');
-            break;
-          case HttpEventType.UploadProgress:
-            let d  = Math.round(event.loaded / event.total! * 100);
-            console.log(`Uploaded! ${d}%`);
-            break;
-          case HttpEventType.Response:
-            console.log('User successfully created!', event.body);
-        }
-      })
+    if(this.action==='add'){
+      this.departementService.createDepartement(this.departement).subscribe(
+        (event: HttpEvent<any>) => {
+          switch (event.type) {
+            case HttpEventType.Sent:
+              console.log('Request has been made!');
+              break;
+            case HttpEventType.ResponseHeader:
+              console.log('Response header has been received!');
+              break;
+            case HttpEventType.UploadProgress:
+              let d  = Math.round(event.loaded / event.total! * 100);
+              console.log(`Uploaded! ${d}%`);
+              break;
+            case HttpEventType.Response:
+              console.log('User successfully created!', event.body);
+          }
+        })
+    }
 
+    if (this.action === 'update') {
+      this.departementService.updateDepartement(this.departement).subscribe(
+        (event: HttpEvent<any>) => {
+          switch (event.type) {
+            case HttpEventType.Sent:
+              console.log('Request has been made!');
+              break;
+            case HttpEventType.ResponseHeader:
+              console.log('Response header has been received!');
+              break;
+            case HttpEventType.UploadProgress:
+              let d  = Math.round(event.loaded / event.total! * 100);
+              console.log(`Uploaded! ${d}%`);
+              break;
+            case HttpEventType.Response:
+              console.log('User successfully created!', event.body);
+          }
+        })
+    }
     console.log(this.departement);
+    this.ngOnDestroy();
   }
 
   getFiles($event: any[]) {
     this.file=$event;
+  }
+
+  get name() {
+    return this.departementForm.get('name');
+  }
+
+  get description() {
+    return this.departementForm.get('description');
   }
 }

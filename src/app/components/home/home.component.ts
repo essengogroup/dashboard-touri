@@ -48,12 +48,12 @@ export class HomeComponent implements OnInit , OnDestroy{
   ) { }
 
   ngOnInit(): void {
-    this.users$=this.userService.getUsers().pipe(tap((res:Root<User[]>)=>this.users=res.data));
+    this.users$=this.userService.getUsers().pipe(tap((res:Root<User[]>)=>this.users=res.data.slice(0,5)));
     this.activites$=this.activiteService.getActivites().pipe(tap((res:Root<Activite[]>)=>this.activites=res.data));
-    this.departement$=this.departementService.getDepartements().pipe(tap((res:Root<Departement[]>)=>this.departements=res.data));
+    this.departement$=this.departementService.getDepartements().pipe(tap((res:Root<Departement[]>)=>this.departements=res.data.slice(0,5)));
     this.media$=this.mediaService.getMedias().pipe(tap((res:Root<Media[]>)=>this.medias=res.data));
-    this.reservation$=this.reservationService.getReservations().pipe(tap((res:Root<Reservation[]>)=>this.reservations=res.data));
-    this.site$=this.siteService.getSites().pipe(tap((res:Root<Site[]>)=>this.sites=res.data));
+    this.reservation$=this.reservationService.getReservations().pipe(tap((res:Root<Reservation[]>)=>this.reservations=res.data.slice(0,5)));
+    this.site$=this.siteService.getSites().pipe(tap((res:Root<Site[]>)=>this.sites=res.data.slice(0,5)));
   }
 
   ngOnDestroy(): void {
@@ -61,7 +61,7 @@ export class HomeComponent implements OnInit , OnDestroy{
   }
 
   goToAnotherPage(page_name:string):void{
-    this.router.navigate([page_name], {relativeTo:this.route}).then(()=>{});
+    this.router.navigate(['dashboard',page_name]).then(()=>{});
   }
 
 }

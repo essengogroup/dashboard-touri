@@ -12,7 +12,6 @@ export class LoginComponent implements OnInit ,OnDestroy{
 
   loginForm:FormGroup;
   subscription : Subscription;
-  aliases : string[] = ['email','password'];
 
   constructor(private formBuilder:FormBuilder, private authService:AuthService) {
     this.loginForm = this.formBuilder.group({

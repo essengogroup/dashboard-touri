@@ -21,4 +21,8 @@ export class SiteService {
     return this.httpClient.get<Root<Site>>(`${this.BASE_URL}/${id}`);
   }
 
+  deleteSite(id:number):Observable<Root<Site>>{
+    return this.httpClient.delete<Root<Site>>(`${this.BASE_URL}/${id}`);
+  }
+
 }

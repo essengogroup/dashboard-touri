@@ -25,4 +25,18 @@ export class SiteService {
     return this.httpClient.delete<Root<Site>>(`${this.BASE_URL}/${id}`);
   }
 
+  createSite(site:Site):Observable<any>{
+    return this.httpClient.post<Root<Site>>(`${this.BASE_URL}`,site,{
+      reportProgress: true,
+      observe: 'events'});
+  }
+
+  updateSite(site:Site):Observable<any>{
+    const data = {...site, departementId: site.departement.id, mediaId: site.medias[0].id, activiteId: site.activites[0].id};
+    console.log(data)
+    return this.httpClient.put<Root<Site>>(`${this.BASE_URL}/${site.id}`,site,{
+      reportProgress: true,
+      observe: 'events'});
+  }
+
 }

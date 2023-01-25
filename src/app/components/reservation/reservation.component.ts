@@ -6,6 +6,7 @@ import {ReservationService} from "../../service/reservation.service";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {MessageService} from "primeng/api";
 import {AddUpdateReservationComponent} from "../../modal/add-update-reservation/add-update-reservation.component";
+import {NavigationService} from "../../shared/navigation.service";
 
 @Component({
   selector: 'app-reservation',
@@ -18,24 +19,32 @@ export class ReservationComponent implements OnInit,OnDestroy {
   subscription:Subscription=new Subscription();
   reservations:Reservation[]=[];
   ref!: DynamicDialogRef;
+  itemsPerPage: number = 5;
+  p: number = 1;
   constructor(
     private reservationService:ReservationService,
     private messageService:MessageService,
-    private dialogService:DialogService
+    private dialogService:DialogService,
+    public navigationService:NavigationService
   ) { }
 
   ngOnInit(): void {
-    this.reservation$=this.reservationService.getReservations().pipe(tap((res:Root<Reservation[]>)=>this.reservations=res.data));
+    this.fetchReservations()
   }
 
-  show(reservation: Reservation={} as Reservation) {
+  fetchReservations() {
+    this.reservation$=this.reservationService.getReservations();
+    this.subscription.add(this.reservationService.getReservations().subscribe((res:Root<Reservation[]>)=>this.reservations=res.data));
+  }
+
+  show(reservation: Reservation={} as Reservation,action:string = 'add') {
     this.ref = this.dialogService.open(AddUpdateReservationComponent, {
       header: 'Reservations',
       width: '70%',
       contentStyle: {"overflow": "auto"},
       baseZIndex: 10000,
       maximizable: true,
-      data: reservation
+      data: {reservation,action},
     });
 
     this.ref.onClose.subscribe((res) => {
@@ -54,4 +63,7 @@ export class ReservationComponent implements OnInit,OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  confirmDelete(reservation: Reservation) {
+
+  }
 }

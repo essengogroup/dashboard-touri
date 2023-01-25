@@ -8,6 +8,11 @@ import {DialogService} from "primeng/dynamicdialog";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {FileUploadModule} from "primeng/fileupload";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
+import {MultiSelectModule} from 'primeng/multiselect';
+import { ChipModule } from 'primeng/chip';
+import {DropdownModule} from "primeng/dropdown";
+import {TabViewModule} from 'primeng/tabview';
+import {GalleriaModule} from "primeng/galleria";
 
 @NgModule({
   declarations: [],
@@ -16,7 +21,12 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
     DashboardRoutingModule,
     ToastModule,
     FileUploadModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    MultiSelectModule,
+    ChipModule,
+    DropdownModule,
+    TabViewModule,
+    GalleriaModule
   ],
   providers: [
     DialogService,
@@ -26,7 +36,12 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
   exports: [
     ToastModule,
     FileUploadModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    MultiSelectModule,
+    ChipModule,
+    DropdownModule,
+    TabViewModule,
+    GalleriaModule
   ]
 })
 export class DashboardModule { }

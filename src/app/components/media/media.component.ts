@@ -7,6 +7,7 @@ import {Departement} from "../../model/departement";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {MessageService} from "primeng/api";
 import {AddUpdateMediaComponent} from "../../modal/add-update-media/add-update-media.component";
+import {NavigationService} from "../../shared/navigation.service";
 
 @Component({
   selector: 'app-media',
@@ -18,14 +19,46 @@ export class MediaComponent implements OnInit,OnDestroy {
   subscription:Subscription=new Subscription();
   medias: Media[] = [];
   ref!: DynamicDialogRef;
+
+  responsiveOptions: any[] = [
+    {
+      breakpoint: '1024px',
+      numVisible: 5
+    },
+    {
+      breakpoint: '768px',
+      numVisible: 3
+    },
+    {
+      breakpoint: '560px',
+      numVisible: 1
+    }
+  ];
+  displayCustom: boolean=false;
+  activeIndex: number = 0;
+  itemsPerPage : number = 12;
+  p: number = 1;
+
   constructor(
     private mediaService:MediaService,
     private messageService:MessageService,
-    private dialogService:DialogService
+    private dialogService:DialogService,
+    public navigationService:NavigationService
   ) { }
 
   ngOnInit(): void {
+    this.fetchMedias();
+  }
+
+  fetchMedias() {
     this.media$ = this.mediaService.getMedias().pipe(tap((res:Root<Media[]>) => this.medias = res.data));
+    this.subscription.add(this.mediaService.getMedias().subscribe((res:Root<Media[]>) => this.medias = res.data));
+  }
+
+
+  imageClick(index: number) {
+    this.activeIndex = index;
+    this.displayCustom = true;
   }
 
   show(media: Media={} as Media) {

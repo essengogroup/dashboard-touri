@@ -3,11 +3,10 @@ import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {ConfirmationService, ConfirmEventType, MessageService} from "primeng/api";
 import {AddUpdateDepartementComponent} from "../../modal/add-update-departement/add-update-departement.component";
 import {Departement} from "../../model/departement";
-import {Observable, Subscription, tap} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {Root} from "../../model/root";
 import {DepartementService} from "../../service/departement.service";
 import {NavigationService} from "../../shared/navigation.service";
-import {User} from "../../model/user";
 
 @Component({
   selector: 'app-departement',

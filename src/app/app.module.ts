@@ -68,18 +68,18 @@ import { FilterPipe } from './shared/filter.pipe';
     TruncatePipe,
     FilterPipe
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    StoreModule.forRoot({}, {}),
-    ReactiveFormsModule,
-    FormsModule,
-    HttpClientModule,
-    DashboardModule,
-    BrowserAnimationsModule,
-    NgbModule,
-    NgxPaginationModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        StoreModule.forRoot({}, {}),
+        ReactiveFormsModule,
+        FormsModule,
+        HttpClientModule,
+        DashboardModule,
+        BrowserAnimationsModule,
+        NgbModule,
+        NgxPaginationModule,
+    ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

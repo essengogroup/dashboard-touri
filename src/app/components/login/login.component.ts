@@ -10,19 +10,19 @@ import {Subscription} from "rxjs";
 })
 export class LoginComponent implements OnInit ,OnDestroy{
 
-  loginForm:FormGroup;
-  subscription : Subscription;
+  loginForm!:FormGroup;
+  subscription : Subscription=new Subscription();
 
-  constructor(private formBuilder:FormBuilder, private authService:AuthService) {
+  constructor(
+    private formBuilder:FormBuilder,
+    private authService:AuthService
+  ) {}
+
+  ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
       email: ['',[Validators.required,Validators.email]],
       password: ['',[Validators.required]]
     });
-
-    this.subscription= new Subscription();
-  }
-
-  ngOnInit(): void {
   }
 
   ngOnDestroy(): void {
@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit ,OnDestroy{
     if(!this.loginForm.valid){
       return;
     }
-    this.subscription=this.authService.signIn(this.loginForm.value.email,this.loginForm.value.password);
+    this.subscription.add(this.authService.signIn(this.loginForm.value.email,this.loginForm.value.password));
   }
 
   get email() { return this.loginForm.get('email'); }

@@ -1,6 +1,7 @@
 import { Departement } from "./departement"
 import {Media} from "./media";
 import {Activite} from "./activite";
+import {SiteDate} from "./site-date";
 
 export interface Site {
   id: number;
@@ -14,4 +15,5 @@ export interface Site {
   departement: Departement;
   medias: Media[];
   activites: Activite[];
+  siteDates:SiteDate[];
 }

@@ -1,11 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {UserService} from "../../service/user.service";
-import {Observable, Subscription, tap} from "rxjs";
+import {Subscription} from "rxjs";
 import {AuthService} from "../../service/auth.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {User} from "../../model/user";
 import {Root} from "../../model/root";
-import {data} from "autoprefixer";
 
 @Component({
   selector: 'app-profile',
@@ -13,7 +12,7 @@ import {data} from "autoprefixer";
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit,OnDestroy {
-  subscription : Subscription;
+  subscription : Subscription = new Subscription();
   uuid:number=1;
 
   profileForm:FormGroup= new FormGroup<any>({});
@@ -22,17 +21,18 @@ export class ProfileComponent implements OnInit,OnDestroy {
   aliases:string[]=['lastName','firstName','address','phone'];
   currentUser:User={} as User;
 
+  isVisibilbleForm:boolean = false
+
   constructor(
     private userService:UserService,
     private authService:AuthService,
     private formBuilder:FormBuilder
-  ) {
-    this.subscription=new Subscription();
-    this.currentUser = this.authService.currentUserValue;
-
-  }
+  ) {}
 
   ngOnInit(): void {
+
+    this.currentUser = this.authService.currentUserValue;
+
     this.profileForm=this.formBuilder.group({
       lastName:[this.currentUser.full_name.split(' ')[0],[Validators.required]],
       firstName:[this.currentUser.full_name.split(' ')[1],[Validators.required]],
@@ -56,15 +56,33 @@ export class ProfileComponent implements OnInit,OnDestroy {
       id:this.currentUser.id,
       full_name: this.profileForm.value.lastName+' '+this.profileForm.value.firstName,
       address: this.profileForm.value.address,
-      phone: this.profileForm.value.phone
+      phone: this.profileForm.value.phone,
     } as User;
 
     this.userService.updateUser(user).subscribe({
       next: (data:Root<User>)=>{
         console.log(data);
+        this.onShowForm()
       }
     });
 
+  }
+
+  onShowForm(){
+    this.isVisibilbleForm = !this.isVisibilbleForm
+  }
+
+  get lastName(){
+    return this.profileForm.get('lastName')
+  }
+  get firstName(){
+    return this.profileForm.get('firstName')
+  }
+  get address(){
+    return this.profileForm.get('address')
+  }
+  get phone(){
+    return this.profileForm.get('phone')
   }
 
 }

@@ -25,18 +25,23 @@ export class SiteService {
     return this.httpClient.delete<Root<Site>>(`${this.BASE_URL}/${id}`);
   }
 
-  createSite(site:Site):Observable<any>{
-    return this.httpClient.post<Root<Site>>(`${this.BASE_URL}`,site,{
-      reportProgress: true,
-      observe: 'events'});
+  createSite(name:string,description:string,departement_id:number,price:number):Observable<Root<Site>>{
+    const data = {name,description,departement_id,price,longitude:0,latitude:0};
+    return this.httpClient.post<Root<Site>>(`${this.BASE_URL}`,data);
   }
 
-  updateSite(site:Site):Observable<any>{
-    const data = {...site, departementId: site.departement.id, mediaId: site.medias[0].id, activiteId: site.activites[0].id};
-    console.log(data)
-    return this.httpClient.put<Root<Site>>(`${this.BASE_URL}/${site.id}`,site,{
-      reportProgress: true,
-      observe: 'events'});
+  updateSite(id:number,name:string,description:string,departement_id:number,price:number):Observable<Root<Site>>{
+    const data = {name,description,departement_id,price};
+    return this.httpClient.put<Root<Site>>(`${this.BASE_URL}/${id}`,data);
+  }
+
+  addActiviteToSite(site_id:number,price:number,activite_id:number,type:string='obligatoire'):Observable<any>{
+    const data = {type,price,activite_id};
+    return this.httpClient.post<any>(`${this.BASE_URL}/${site_id}/activite`,data);
+  }
+
+  deleteActiviteToSite(site_id:number,activite_id:number):Observable<any>{
+    return this.httpClient.delete<any>(`${this.BASE_URL}/${site_id}/activite/${activite_id}`);
   }
 
 }

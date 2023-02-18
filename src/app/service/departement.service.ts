@@ -22,12 +22,14 @@ export class DepartementService {
   }
 
   createDepartement(departement:Departement):Observable<any>{
+    // TODO: Add API {name:""} to {name,description,src}
     return this.httpClient.post<Root<Departement>>(`${this.BASE_URL}`,departement,{
       reportProgress: true,
       observe: 'events'});
   }
 
   updateDepartement(departement:Departement):Observable<any>{
+    // TODO: change API {name:""} to {name,description,src}
     return this.httpClient.put<Root<Departement>>(`${this.BASE_URL}/${departement.id}`,departement,{
       reportProgress: true,
       observe: 'events'});

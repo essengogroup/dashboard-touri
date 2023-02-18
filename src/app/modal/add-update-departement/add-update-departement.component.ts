@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Departement} from "../../model/departement";
 import {DepartementService} from "../../service/departement.service";
 import {HttpEvent, HttpEventType} from "@angular/common/http";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-add-update-departement',
@@ -21,7 +22,8 @@ export class AddUpdateDepartementComponent implements OnInit,OnDestroy {
     private formBuilder: FormBuilder,
     private ref: DynamicDialogRef,
     private config: DynamicDialogConfig,
-    private departementService:DepartementService
+    private departementService:DepartementService,
+    private messageService:MessageService,
   ) {}
 
 
@@ -33,6 +35,7 @@ export class AddUpdateDepartementComponent implements OnInit,OnDestroy {
       this.departementForm = this.formBuilder.group({
         name: [this.departement.name, Validators.required],
         description: [this.departement.description, Validators.required],
+        image_path: [this.departement.image_path],
       });
     }
 
@@ -50,14 +53,17 @@ export class AddUpdateDepartementComponent implements OnInit,OnDestroy {
 
   onSubmit() {
     if (!this.departementForm.valid) {
-      return
+      this.messageService.add({severity:'info', summary:'Info', detail:`Certains champ du formulaire sont vide.`})
+      return;
     }
 
     this.departement.name = this.departementForm.value.name;
     this.departement.description = this.departementForm.value.description;
-    this.departement.image_path =this.file[0].src;
 
     if(this.action==='add'){
+
+      this.departement.image_path = this.file.length == 0?"null":this.file[0].src;
+
       this.departementService.createDepartement(this.departement).subscribe(
         (event: HttpEvent<any>) => {
           switch (event.type) {
@@ -78,6 +84,9 @@ export class AddUpdateDepartementComponent implements OnInit,OnDestroy {
     }
 
     if (this.action === 'update') {
+
+      this.departement.image_path =this.file.length==0?this.departement.image_path:this.file[0].src;
+
       this.departementService.updateDepartement(this.departement).subscribe(
         (event: HttpEvent<any>) => {
           switch (event.type) {
@@ -96,8 +105,7 @@ export class AddUpdateDepartementComponent implements OnInit,OnDestroy {
           }
         })
     }
-    console.log(this.departement);
-    this.ngOnDestroy();
+    this.ref.close()
   }
 
   getFiles($event: any[]) {
@@ -111,4 +119,5 @@ export class AddUpdateDepartementComponent implements OnInit,OnDestroy {
   get description() {
     return this.departementForm.get('description');
   }
+
 }

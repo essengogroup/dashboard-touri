@@ -4,6 +4,7 @@ import {environment} from "../../environments/environment";
 import {Activite} from "../model/activite";
 import {Observable} from "rxjs";
 import {Root} from "../model/root";
+import {Departement} from "../model/departement";
 
 @Injectable({
   providedIn: 'root'
@@ -20,11 +21,19 @@ export class ActiviteService {
     return this.httpClient.get<Root<Activite>>(`${this.BASE_URL}/${id}`)
   }
 
-  createActivite(activite:Activite):Observable<Root<Activite>>{
-    return this.httpClient.post<Root<Activite>>(`${this.BASE_URL}`,activite)
+  createActivite(activite:Activite):Observable<any>{
+    return this.httpClient.post<Root<Activite>>(`${this.BASE_URL}`,activite,{
+      reportProgress: true,
+      observe: 'events'});
   }
 
-  updateActivite(activite:Activite):Observable<Root<Activite>>{
-    return this.httpClient.put<Root<Activite>>(`${this.BASE_URL}`,activite)
+  updateActivite(activite:Activite):Observable<any>{
+    return this.httpClient.put<Root<Activite>>(`${this.BASE_URL}/${activite.id}`,activite,{
+      reportProgress: true,
+      observe: 'events'});
+  }
+
+  deleteActivite(activite_id:number):Observable<any>{
+    return this.httpClient.delete<Root<Activite>>(`${this.BASE_URL}/${activite_id}`)
   }
 }

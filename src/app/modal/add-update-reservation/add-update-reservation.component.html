@@ -1,1 +1,84 @@
-<p>add-update-reservation works!</p>
+<section class="flex flex-col w-full items-center justify-center">
+
+  <form (ngSubmit)="onSubmit()" [formGroup]="reservationForm" class="w-1/2 flex flex-col items-center space-y-2">
+
+    <div class="w-full flex flex-col space-x-2 md:flex-row justify-between items-center py-5">
+
+      <span class="p-float-label">
+        <p-dropdown class="w-full" id="dropdown_sites" inputId="dropdown_sites" name="site" [autoDisplayFirst]="false" [options]="action=='add'?sites:[siteSelected]" [(ngModel)]="siteSelected" [ngModelOptions]="{standalone: true}" optionLabel="name"></p-dropdown>
+        <label for="dropdown_sites">Sites</label>
+      </span>
+
+      <span class="p-float-label">
+        <p-dropdown class="w-full" id="dropdown_siteDate" inputId="dropdown_siteDate" name="siteDate" [autoDisplayFirst]="false" [options]="action=='add'?(siteSelected?siteSelected.siteDates:[]):([siteDate?.value])" formControlName="siteDate" optionLabel="date_" [ngClass]="{'border-red-300 text-red-900 placeholder-red-500 focus:border-red-500':(siteDate!.invalid && (siteDate!.dirty || siteDate!.touched))}"></p-dropdown>
+        <label for="dropdown_siteDate">Planning</label>
+      </span>
+    </div>
+
+    <div class="w-full">
+      <p-multiSelect  class="w-full" [options]="action=='add'? users : user?.value " [ngClass]="{'border-red-300 text-red-900 placeholder-red-500 focus:border-red-500':(user!.invalid && (user!.dirty || user!.touched))}" formControlName="user" defaultLabel="Selectionnez les utilisateurs" optionLabel="full_name" display="chip"></p-multiSelect>
+    </div>
+
+    <div class="w-full">
+      <p-multiSelect  class="w-full" [options]="action=='add'?(siteSelected?siteSelected.activites:[]):(activite?.value)" [ngClass]="{'border-red-300 text-red-900 placeholder-red-500 focus:border-red-500':(activite!.invalid && (activite!.dirty || activite!.touched))}" formControlName="activites" defaultLabel="Selectionnez les activités" optionLabel="name" display="chip"></p-multiSelect>
+    </div>
+
+
+    <div class="w-full">
+      <label for="commentaire" class="sr-only">Commentaire</label>
+      <input formControlName="commentaire" [ngClass]="{'border-red-300 text-red-900 placeholder-red-500 focus:border-red-500':(commentaire!.invalid && (commentaire!.dirty || commentaire!.touched))}" id="commentaire" name="commenatire" type="text"  class="relative block w-full appearance-none  rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="commentaire">
+    </div>
+
+    <div class="w-full">
+      <label for="nbPersonnes" class="sr-only">Nombre de personne</label>
+      <input formControlName="nb_personnes" [ngClass]="{'border-red-300 text-red-900 placeholder-red-500 focus:border-red-500':(nbPersonnes!.invalid && (nbPersonnes!.dirty || nbPersonnes!.touched))}" id="nbPersonnes" name="commenatire" type="number"  class="relative block w-full appearance-none  rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="0">
+    </div>
+
+
+    <button *ngIf="action==='add'" type="submit" class="group relative my-5 flex w-1/2 justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+            <!-- Heroicon name: mini/lock-closed -->
+            <svg class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" />
+            </svg>
+          </span>
+      Ajouter
+    </button>
+
+  </form>
+
+  <div *ngIf="action==='update'" class="w-1/2 flex flex-col md:flex-row space-y-2 md:space-y-4 my-5">
+
+    <button (click)="onCancelReservation()" type="submit" class="relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+            <!-- Heroicon name: mini/lock-closed -->
+            <svg class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" />
+            </svg>
+          </span>
+      <span>Annuler</span>
+
+    </button> <button (click)="onRefuseReservation()" type="submit" class="relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+            <!-- Heroicon name: mini/lock-closed -->
+            <svg class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" />
+            </svg>
+          </span>
+      <span>Refuse</span>
+    </button>
+
+    <button (click)="onValidateReservation()" type="submit" class="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+            <!-- Heroicon name: mini/lock-closed -->
+            <svg class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" />
+            </svg>
+          </span>
+      <span>valider</span>
+
+    </button>
+
+
+  </div>
+</section>

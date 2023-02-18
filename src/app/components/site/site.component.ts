@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Observable, Subscription, tap} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {Root} from "../../model/root";
 import {Site} from "../../model/site";
 import {SiteService} from "../../service/site.service";
@@ -7,7 +7,6 @@ import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {ConfirmationService, ConfirmEventType, MessageService} from "primeng/api";
 import {AddUpdateSiteComponent} from "../../modal/add-update-site/add-update-site.component";
 import {NavigationService} from "../../shared/navigation.service";
-import {Departement} from "../../model/departement";
 
 @Component({
   selector: 'app-site',
@@ -43,7 +42,7 @@ export class SiteComponent implements OnInit,OnDestroy {
   show(site: Site={} as Site, action: string='add') {
     this.ref = this.dialogService.open(AddUpdateSiteComponent, {
       header: 'Sites',
-      width: '70%',
+      width: '80%',
       contentStyle: {"overflow": "auto"},
       baseZIndex: 10000,
       maximizable: true,
@@ -51,8 +50,7 @@ export class SiteComponent implements OnInit,OnDestroy {
     });
 
     this.ref.onClose.subscribe((res) => {
-      console.log(res);
-      this.fetchSites()
+      this.ngOnInit()
     });
 
     this.ref.onMaximize.subscribe((value) => {
@@ -89,6 +87,5 @@ export class SiteComponent implements OnInit,OnDestroy {
         }
       }
     });
-
   }
 }

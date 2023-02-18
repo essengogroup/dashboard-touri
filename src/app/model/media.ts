@@ -1,5 +1,6 @@
 export interface Media {
   id: number;
+  site_id:number|undefined;
   name: string;
   path: string;
   type: string;

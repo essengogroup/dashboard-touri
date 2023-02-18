@@ -17,7 +17,12 @@
       </select>
     </div>
   </div>
-  <div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
+
+  <div *ngIf="!sites" class="w-full flex items-center justify-center">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+
+  <div *ngIf="sites" class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
     <table class="w-full border-collapse bg-white text-left text-sm text-gray-500">
     <thead class="bg-gray-50">
     <tr>
@@ -38,7 +43,7 @@
         <div class="relative h-10 w-10">
           <img
             class="h-full w-full rounded-full object-cover object-center"
-            src="{{site.medias[0].path}}"
+            src="{{site.medias.length >0?site.medias[0].path:'assets/inno-tour.jpeg'}}"
             alt="{{site.name}}"
           />
         </div>
@@ -59,7 +64,7 @@
             <span
               class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"
             >
-              {{site.price}}XAF
+              {{site.price| currency:'XAF'}}
             </span>
         </div>
       </td>

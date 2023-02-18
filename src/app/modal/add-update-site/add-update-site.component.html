@@ -1,47 +1,153 @@
 <section class="container mx-auto">
-  <form (ngSubmit)="onSubmit()" [formGroup]="siteForm" class="w-full flex flex-col items-center" enctype="multipart/form-data">
-    <div class="w-full">
-      <label for="name" class="sr-only">Nom</label>
-      <input formControlName="name" [ngClass]="{'border-red-300 text-red-900 placeholder-red-500 focus:border-red-500':(name!.invalid && (name!.dirty || name!.touched))}" id="name" name="name" type="text"  class="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="name">
-    </div>
-    <div class="w-full">
-      <label for="description" class="sr-only">Description</label>
-      <input formControlName="description" [ngClass]="{'border-red-300 text-red-900 placeholder-red-500 focus:border-red-500':(description!.invalid && (description!.dirty || description!.touched))}" id="description" name="description" type="text"  class="relative block w-full appearance-none rounded-none border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="description">
-    </div>
-    <div class="w-full">
-      <label for="price" class="sr-only">Prix</label>
-      <input formControlName="price" [ngClass]="{'border-red-300 text-red-900 placeholder-red-500 focus:border-red-500':(price!.invalid && (price!.dirty || price!.touched))}" id="price" name="description" type="text"  class="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="price">
-    </div>
 
-    <div class=" my-5 w-full grid grid-cols-3 gap-2">
-
+  <div class="w-full flex flex-col justify-center items-center">
+    <form (ngSubmit)="onSubmit()" [formGroup]="siteForm" class="w-1/2 flex flex-col items-center " enctype="multipart/form-data">
       <div class="w-full">
-      <span class="p-float-label">
-        <p-dropdown class="w-full" inputId="dropdown" [autoDisplayFirst]="false" [options]="departements" formControlName="departement_id" optionLabel="name" [ngClass]="{'border-red-300 text-red-900 placeholder-red-500 focus:border-red-500':(department!.invalid && (department!.dirty || department!.touched))}"></p-dropdown>
-        <label for="dropdown">Selectionnez le departement</label>
-      </span>
+        <label for="name" class="sr-only">Nom</label>
+        <input formControlName="name" [ngClass]="{'border-red-300 text-red-900 placeholder-red-500 focus:border-red-500':(name!.invalid && (name!.dirty || name!.touched))}" id="name" name="name" type="text"  class="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="name">
+      </div>
+      <div class="w-full">
+        <label for="description" class="sr-only">Description</label>
+        <input formControlName="description" [ngClass]="{'border-red-300 text-red-900 placeholder-red-500 focus:border-red-500':(description!.invalid && (description!.dirty || description!.touched))}" id="description" name="description" type="text"  class="relative block w-full appearance-none rounded-none border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="description">
+      </div>
+      <div class="w-full">
+        <label for="price" class="sr-only">Prix</label>
+        <input formControlName="price" [ngClass]="{'border-red-300 text-red-900 placeholder-red-500 focus:border-red-500':(price!.invalid && (price!.dirty || price!.touched))}" id="price" name="description" type="text"  class="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="price">
       </div>
 
-      <div class="w-full">
-        <p-multiSelect scrollHeight="250px" [options]="action=='add'?activites:activite?.value" [ngClass]="{'border-red-300 text-red-900 placeholder-red-500 focus:border-red-500':(activite!.invalid && (activite!.dirty || activite!.touched))}" formControlName="activite_id" defaultLabel="Selectionnez les activités" optionLabel="name" display="chip"></p-multiSelect>
+      <div class="w-full flex flex-col md:flex-row items-center justify-between my-6">
+
+        <div class="w-full">
+          <span class="p-float-label">
+            <p-dropdown class="w-full" id="dropdown" inputId="dropdown" [autoDisplayFirst]="false" [options]="departements" formControlName="departement" optionLabel="name" [ngClass]="{'border-red-300 text-red-900 placeholder-red-500 focus:border-red-500':(department!.invalid && (department!.dirty || department!.touched))}"></p-dropdown>
+            <label for="dropdown">Le departement</label>
+          </span>
+        </div>
+
+        <div class="w-full">
+          <p-multiSelect [options]="action=='add'?activites:activite?.value" [ngClass]="{'border-red-300 text-red-900 placeholder-red-500 focus:border-red-500':(activite!.invalid && (activite!.dirty || activite!.touched))}" formControlName="activites" defaultLabel="Selectionnez les activités" optionLabel="name" display="chip"></p-multiSelect>
+        </div>
+
       </div>
 
-      <div class="w-full">
-        <p-multiSelect scrollHeight="250px" [options]="action=='add'?medias:media?.value" [ngClass]="{'border-red-300 text-red-900 placeholder-red-500 focus:border-red-500':(media!.invalid && (media!.dirty || media!.touched))}" formControlName="media_id" defaultLabel="Select les medias" optionLabel="name" display="chip"></p-multiSelect>
+      <h4 class="w-full my-6" *ngIf="site.siteDates">Planning de voyage</h4>
+
+      <div *ngIf="site.siteDates" class="w-full grid grid-cols-1 md:grid-cols-3 gap-4 ">
+        <article class="flex flex-col rounded border border-gray-300 px-3 py-2 " *ngFor="let siteDate of site.siteDates">
+          <div class="flex justify-between">
+            <h6>{{siteDate.date_|date:'dd-MM-YY'}}</h6>
+            <span>
+              <button (click)="confirmDelete(siteDate)">
+                <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="h-6 w-6"
+              x-tooltip="tooltip"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+              />
+            </svg>
+              </button>
+            </span>
+          </div>
+          <div class="flex justify-between">
+            <small>Départ : {{siteDate.start_time|slice:0:5}}</small>
+            <small>Arrivée : {{siteDate.end_time|slice:0:5}}</small>
+          </div>
+        </article>
       </div>
 
-    </div>
-
-    <button [disabled]="!siteForm.valid" type="submit" class="group relative my-5 flex w-1/2 justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+      <button [disabled]="!siteForm.valid" type="submit" class="group relative my-5 flex w-1/2 justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
           <span class="absolute inset-y-0 left-0 flex items-center pl-3">
             <!-- Heroicon name: mini/lock-closed -->
             <svg class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
               <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" />
             </svg>
           </span>
-      <span *ngIf="action==='add'">Ajouter</span>
-      <span *ngIf="action!=='add'">Modifier</span>
-    </button>
+        <span *ngIf="action==='add'">Ajouter</span>
+        <span *ngIf="action!=='add'">Modifier</span>
+      </button>
 
-  </form>
+    </form>
+
+  </div>
+
+  <div class="w-full flex flex-col py-16 space-y-6 justify-center items-center" *ngIf="action !='add'">
+
+    <h3 class="text-2xl">Ajouter des activités aux site courant</h3>
+
+    <form (ngSubmit)="onActiviteSubmit()" [formGroup]="activiteForm" class="w-1/2 flex flex-col items-center space-y-2">
+
+      <div class="w-full flex flex-col md:flex-row items-center justify-between">
+        <div class="w-full">
+          <span class="p-float-label">
+            <p-dropdown class="w-full" id="dropdown_" inputId="dropdown_" [autoDisplayFirst]="false" [options]="[{name:'optionnel'},{name:'obligatoire'}]" formControlName="type" optionLabel="name" [ngClass]="{'border-red-300 text-red-900 placeholder-red-500 focus:border-red-500':(department!.invalid && (department!.dirty || department!.touched))}"></p-dropdown>
+            <label for="dropdown_">Type</label>
+          </span>
+        </div>
+
+        <div class="w-full">
+          <p-multiSelect  class="w-full" [options]="activites" [ngClass]="{'border-red-300 text-red-900 placeholder-red-500 focus:border-red-500':(activite!.invalid && (activite!.dirty || activite!.touched))}" formControlName="activites" defaultLabel="Selectionnez les activités" optionLabel="name" display="chip"></p-multiSelect>
+        </div>
+      </div>
+
+      <div class="w-full">
+        <label for="price_" class="sr-only">Prix</label>
+        <input formControlName="price" [ngClass]="{'border-red-300 text-red-900 placeholder-red-500 focus:border-red-500':(price!.invalid && (price!.dirty || price!.touched))}" id="price_" name="description" type="text"  class="relative block w-full appearance-none  rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="price">
+      </div>
+
+      <button [disabled]="!activiteForm.valid" type="submit" class="group relative my-5 flex w-1/2 justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+            <!-- Heroicon name: mini/lock-closed -->
+            <svg class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" />
+            </svg>
+          </span>
+        <span>Ajouter à ce site</span>
+      </button>
+
+    </form>
+
+  </div>
+
+  <div class="w-full flex flex-col space-y-6 justify-center items-center" *ngIf="action !='add'" >
+
+    <h3 class="text-2xl">Ajouter des dates et heures aux site courant</h3>
+
+    <form (ngSubmit)="onSiteDateSubmit()" [formGroup]="siteDateForm" class="w-1/2 flex flex-col items-center space-y-2">
+
+      <div class="w-full">
+        <label for="date_" class="sr-only">Date</label>
+        <input formControlName="date_" [ngClass]="{'border-red-300 text-red-900 placeholder-red-500 focus:border-red-500':(startDate!.invalid && (startDate!.dirty || startDate!.touched))}" id="date_" name="date" type="date"  class="relative block w-full appearance-none  rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+      </div>
+      <div class="w-full">
+        <label for="start_time" class="sr-only">Heure de depart</label>
+        <input formControlName="start_time" [ngClass]="{'border-red-300 text-red-900 placeholder-red-500 focus:border-red-500':(startTime!.invalid && (startTime!.dirty || startTime!.touched))}" id="start_time" name="description" type="time"  class="relative block w-full appearance-none  rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="price">
+      </div>
+      <div class="w-full">
+        <label for="end_time" class="sr-only">Heure d'arrivée</label>
+        <input formControlName="end_time" [ngClass]="{'border-red-300 text-red-900 placeholder-red-500 focus:border-red-500':(endTime!.invalid && (endTime!.dirty || endTime!.touched))}" id="end_time" name="description" type="time"  class="relative block w-full appearance-none  rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="price">
+      </div>
+      <button type="submit" class="group relative my-5 flex w-1/2 justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+            <!-- Heroicon name: mini/lock-closed -->
+            <svg class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" />
+            </svg>
+          </span>
+        <span>Ajouter à ce site</span>
+      </button>
+
+
+    </form>
+
+  </div>
+
+
 </section>

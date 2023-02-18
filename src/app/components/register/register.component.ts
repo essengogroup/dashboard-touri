@@ -10,10 +10,16 @@ import {User} from "../../model/user";
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit,OnDestroy {
-  registerForm:FormGroup;
-  subscription:Subscription;
+  registerForm!:FormGroup;
+  subscription:Subscription=new Subscription();
 
-  constructor(private formBuilder:FormBuilder, private authService:AuthService) {
+  constructor(
+    private formBuilder:FormBuilder,
+    private authService:AuthService
+  ) {
+  }
+
+  ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
       lastName: ['',[Validators.required]],
       firstName: ['',[Validators.required]],
@@ -21,10 +27,6 @@ export class RegisterComponent implements OnInit,OnDestroy {
       password: ['',[Validators.required]],
       password_confirmation: ['',[Validators.required]]
     });
-    this.subscription= new Subscription();
-  }
-
-  ngOnInit(): void {
   }
 
   ngOnDestroy(): void {
@@ -45,7 +47,7 @@ export class RegisterComponent implements OnInit,OnDestroy {
       password_confirmation: this.registerForm.value.password_confirmation,
     } as User;
 
-  this.subscription=this.authService.signUp(user);
+  this.subscription.add(this.authService.signUp(user));
 }
 
   get lastName() { return this.registerForm.get('lastName'); }

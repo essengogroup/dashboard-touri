@@ -13,6 +13,10 @@ import { ChipModule } from 'primeng/chip';
 import {DropdownModule} from "primeng/dropdown";
 import {TabViewModule} from 'primeng/tabview';
 import {GalleriaModule} from "primeng/galleria";
+import {CheckboxModule} from "primeng/checkbox";
+import {ButtonModule} from 'primeng/button';
+import {RippleModule} from "primeng/ripple";
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 @NgModule({
   declarations: [],
@@ -26,7 +30,11 @@ import {GalleriaModule} from "primeng/galleria";
     ChipModule,
     DropdownModule,
     TabViewModule,
-    GalleriaModule
+    GalleriaModule,
+    CheckboxModule,
+    ButtonModule,
+    RippleModule,
+    ProgressSpinnerModule
   ],
   providers: [
     DialogService,
@@ -41,7 +49,11 @@ import {GalleriaModule} from "primeng/galleria";
     ChipModule,
     DropdownModule,
     TabViewModule,
-    GalleriaModule
+    GalleriaModule,
+    CheckboxModule,
+    ButtonModule,
+    RippleModule,
+    ProgressSpinnerModule
   ]
 })
 export class DashboardModule { }

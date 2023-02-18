@@ -14,6 +14,8 @@ import {Reservation} from "../../model/reservation";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Site} from "../../model/site";
 import {SiteService} from "../../service/site.service";
+import {Status} from "../../model/status";
+import {NavigationService} from "../../shared/navigation.service";
 
 @Component({
   selector: 'app-home',
@@ -44,7 +46,8 @@ export class HomeComponent implements OnInit , OnDestroy{
     private departementService:DepartementService,
     private mediaService:MediaService,
     private reservationService:ReservationService,
-    private siteService:SiteService
+    private siteService:SiteService,
+    public navigationService:NavigationService
   ) { }
 
   ngOnInit(): void {
@@ -62,6 +65,27 @@ export class HomeComponent implements OnInit , OnDestroy{
 
   goToAnotherPage(page_name:string):void{
     this.router.navigate(['dashboard',page_name]).then(()=>{});
+  }
+
+  getClass(status:string) {
+    let style ={};
+    switch (status) {
+      case Status.PENDING:
+        style = {'bg-indigo-50 text-indigo-600':true}
+        break
+      case Status.ACCEPTED:
+        style = {'bg-green-50 text-green-600':true}
+        break
+      case Status.REFUSED:
+        style = {'bg-red-50 text-red-600':true}
+        break
+      case Status.CANCELED:
+        style = {'bg-orange-50  text-orange-600':true}
+        break
+      default:
+        style={'bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600':true}
+    }
+    return style;
   }
 
 }

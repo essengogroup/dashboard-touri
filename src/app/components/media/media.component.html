@@ -18,6 +18,11 @@
     </div>
   </div>
 
+
+  <div *ngIf="!medias" class="w-full flex items-center justify-center">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+
   <p-galleria [value]="medias" [(visible)]="displayCustom" [(activeIndex)]="activeIndex" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '850px'}" [numVisible]="7"
             [circular]="true" [fullScreen]="true" [showItemNavigators]="true" [showThumbnails]="false" [baseZIndex]="100000">
     <ng-template pTemplate="item" let-item>
@@ -30,7 +35,7 @@
     </ng-template>
   </p-galleria>
 
-  <div *ngIf="medias" class="w-full m-5 grid grid-cols-4 gap-4" >
+  <div *ngIf="medias" class="m-5 grid grid-cols-4 gap-4" >
     <div *ngFor="let media of medias | filter : navigationService.currentSearchText : 'name' | paginate: {
                                                       itemsPerPage: itemsPerPage,
                                                       currentPage: p,

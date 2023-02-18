@@ -20,23 +20,20 @@ export class ReservationService {
     return this.httpCilent.get<Root<Reservation>>(`${this.BASE_URL}/${id}`);
   }
 
-  createReservation(reservation:any):Observable<Root<Reservation>>{
+  createReservation(reservation:Reservation):Observable<Root<Reservation>>{
     return this.httpCilent.post<Root<Reservation>>(`${this.BASE_URL}`,reservation);
   }
 
-  updateReservation(reservation:any):Observable<Root<Reservation>>{
-    return this.httpCilent.put<Root<Reservation>>(`${this.BASE_URL}`,reservation);
-  }
-
-  deleteReservation(reservation_id:number):Observable<Root<Reservation>>{
-    return this.httpCilent.delete<Root<Reservation>>(`${this.BASE_URL}/${reservation_id}/cancel`);
-  }
-
   validateReservation(reservation_id:number):Observable<Root<Reservation>>{
-    return this.httpCilent.get<Root<Reservation>>(`${this.BASE_URL}/${reservation_id}/validate`);
+    return this.httpCilent.put<Root<Reservation>>(`${this.BASE_URL}/${reservation_id}/validate`,{});
   }
 
   refuseReservation(reservation_id:number):Observable<Root<Reservation>>{
-    return this.httpCilent.get<Root<Reservation>>(`${this.BASE_URL}/${reservation_id}/refuse`);
+    return this.httpCilent.put<Root<Reservation>>(`${this.BASE_URL}/${reservation_id}/refuse`,{});
   }
+
+  cancelReservation(reservation_id:number):Observable<Root<Reservation>>{
+    return this.httpCilent.put<Root<Reservation>>(`${this.BASE_URL}/${reservation_id}/cancel`,{});
+  }
+
 }

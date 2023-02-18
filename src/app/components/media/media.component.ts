@@ -61,18 +61,18 @@ export class MediaComponent implements OnInit,OnDestroy {
     this.displayCustom = true;
   }
 
-  show(media: Media={} as Media) {
+  show(media: Media={} as Media,action:string='add') {
     this.ref = this.dialogService.open(AddUpdateMediaComponent, {
       header: 'Medias',
       width: '70%',
       contentStyle: {"overflow": "auto"},
       baseZIndex: 10000,
       maximizable: true,
-      data: media
+      data: {media,action}
     });
 
     this.ref.onClose.subscribe((res) => {
-      console.log(res);
+      this.fetchMedias();
     });
 
     this.ref.onMaximize.subscribe((value) => {

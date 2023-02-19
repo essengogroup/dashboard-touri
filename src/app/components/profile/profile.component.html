@@ -5,7 +5,7 @@
     </div>
     <div class="flex flex-col items-center -mt-20">
       <img src="{{currentUser.profile_picture?currentUser.profile_picture:'https://vojislavd.com/ta-template-demo/assets/img/profile.jpg'}}"
-           class="h-40 border-4 border-white rounded-full" alt="{{currentUser.full_name}}">
+           class="h-40 border-4 border-white rounded-full bg-white shadow-md" alt="{{currentUser.full_name}}">
       <div class="flex items-center space-x-2 mt-2">
         <p class="text-2xl">{{currentUser.full_name}}</p>
         <span class="bg-blue-500 rounded-full p-1" title="Verified">
@@ -70,6 +70,8 @@
           <label for="phone" class="sr-only">phone</label>
           <input formControlName="phone" [ngClass]="{'border-red-300 text-red-900 placeholder-red-500 focus:border-red-500':(phone!.invalid && (phone!.dirty || phone!.touched))}" id="phone" name="phone" type="phone"  class="relative block w-full appearance-none  rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="phone">
         </div>
+
+        <app-upload  (fileEmitter)="getFile($event)"></app-upload>
 
         <button type="submit" class="group relative my-5 flex w-1/2 justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
           <span class="absolute inset-y-0 left-0 flex items-center pl-3">

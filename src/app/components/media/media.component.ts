@@ -5,7 +5,7 @@ import {MediaService} from "../../service/media.service";
 import {Root} from "../../model/root";
 import {Departement} from "../../model/departement";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
-import {MessageService} from "primeng/api";
+import {ConfirmationService, ConfirmEventType, MessageService} from "primeng/api";
 import {AddUpdateMediaComponent} from "../../modal/add-update-media/add-update-media.component";
 import {NavigationService} from "../../shared/navigation.service";
 
@@ -43,7 +43,8 @@ export class MediaComponent implements OnInit,OnDestroy {
     private mediaService:MediaService,
     private messageService:MessageService,
     private dialogService:DialogService,
-    public navigationService:NavigationService
+    public navigationService:NavigationService,
+    private confirmationService: ConfirmationService,
   ) { }
 
   ngOnInit(): void {
@@ -88,4 +89,28 @@ export class MediaComponent implements OnInit,OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  confirmDelete(media: Media) {
+    this.confirmationService.confirm({
+      message: `Voulez-vous supprimer cette ${media.type}?`,
+      header: 'Confirmer votre choix',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.mediaService.deleteMedia(media.id).subscribe((res:Root<Departement>)=>{
+          this.fetchMedias()
+          this.messageService.add({severity:'success', summary: 'Succès', detail: `Cette ${media.type} a été supprimé avec succès`});
+        })
+      },
+      reject: (type:any) => {
+        switch(type) {
+          case ConfirmEventType.REJECT:
+            this.messageService.add({severity:'error', summary:'Erreur', detail:'Une erreur est survenue'});
+            break;
+          case ConfirmEventType.CANCEL:
+            this.messageService.add({severity:'warn', summary:'Annulation', detail:'Vous avez annuler la suppression'});
+            break;
+        }
+      }
+    });
+
+  }
 }

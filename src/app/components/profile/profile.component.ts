@@ -23,6 +23,8 @@ export class ProfileComponent implements OnInit,OnDestroy {
 
   isVisibilbleForm:boolean = false
 
+  file:any[] = [];
+
   constructor(
     private userService:UserService,
     private authService:AuthService,
@@ -50,8 +52,6 @@ export class ProfileComponent implements OnInit,OnDestroy {
       return;
     }
 
-    console.log(this.profileForm.value);
-
     const user : User={
       id:this.currentUser.id,
       full_name: this.profileForm.value.lastName+' '+this.profileForm.value.firstName,
@@ -59,10 +59,14 @@ export class ProfileComponent implements OnInit,OnDestroy {
       phone: this.profileForm.value.phone,
     } as User;
 
+
+    user.profile_picture = this.file.length == 0?this.currentUser.profile_picture:this.file[0].src;
+
     this.userService.updateUser(user).subscribe({
-      next: (data:Root<User>)=>{
-        console.log(data);
+      next: (res:Root<User>)=>{
+        this.authService.setUserToLocalStorage(res.data)
         this.onShowForm()
+        this.ngOnInit()
       }
     });
 
@@ -85,4 +89,7 @@ export class ProfileComponent implements OnInit,OnDestroy {
     return this.profileForm.get('phone')
   }
 
+  getFile($event: any[]) {
+    this.file = $event
+  }
 }

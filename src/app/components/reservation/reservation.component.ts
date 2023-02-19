@@ -36,10 +36,7 @@ export class ReservationComponent implements OnInit,OnDestroy {
 
   fetchReservations() {
     this.reservation$=this.reservationService.getReservations();
-    this.subscription.add(this.reservationService.getReservations().subscribe((res:Root<Reservation[]>)=>{
-      this.reservations=res.data
-      console.log(res.data)
-    }));
+    this.subscription.add(this.reservationService.getReservations().subscribe((res:Root<Reservation[]>)=>this.reservations=res.data));
   }
 
   show(reservation: Reservation={} as Reservation,action:string = 'add') {

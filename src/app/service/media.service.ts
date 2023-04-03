@@ -11,6 +11,9 @@ import {Departement} from "../model/departement";
 })
 export class MediaService {
   readonly BASE_URL = `${environment.baseUrl}/media`;
+
+  private formData:FormData = new FormData();
+
   constructor(private httpClient:HttpClient) { }
 
   getMedias():Observable<Root<Media[]>>{
@@ -22,13 +25,26 @@ export class MediaService {
   }
 
   createMedia(media:Media):Observable<any>{
-    return this.httpClient.post<Root<Media>>(`${this.BASE_URL}`,media,{
+    this.formData.append('name', media.name.trim());
+    this.formData.append('site_id', media.site_id!.toString());
+    this.formData.append('path', media.path);
+    this.formData.append('type', media.type);
+    this.formData.append('is_main', media.is_main?'1':'0');
+    return this.httpClient.post<Root<Media>>(`${this.BASE_URL}`,this.formData,{
       reportProgress: true,
       observe: 'events'});
   }
 
   updateMedia(media:Media):Observable<any>{
-    return this.httpClient.put<Root<Media>>(`${this.BASE_URL}/${media.id}`,media,{
+
+    this.formData.append('id', media.id.toString());
+    this.formData.append('name', media.name.trim());
+    this.formData.append('site_id', media.site_id!.toString());
+    this.formData.append('path', media.path);
+    this.formData.append('type', media.type);
+    this.formData.append('is_main', media.is_main.toString());
+
+    return this.httpClient.post<Root<Media>>(`${this.BASE_URL}/${media.id}`,this.formData,{
       reportProgress: true,
       observe: 'events'});
   }

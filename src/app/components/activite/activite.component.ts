@@ -56,7 +56,7 @@ export class ActiviteComponent implements OnInit , OnDestroy {
     });
 
     this.ref.onClose.subscribe((res) => {
-      this.fetchActivite()
+      this.ngOnInit();
     });
 
     this.ref.onMaximize.subscribe((value) => {

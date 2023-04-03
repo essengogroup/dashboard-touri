@@ -1,22 +1,22 @@
-<section class="flex flex-col w-full items-center justify-center font-sans space-y-5 py-5">
-  <label for="dropzone-file" class="cursor-pointer flex w-full max-w-lg flex-col items-center rounded-xl border-2 border-dashed border-blue-400 bg-white p-6 text-center">
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+<section class="flex flex-col items-center justify-center w-full py-5 space-y-5 font-sans">
+  <label for="dropzone-file" class="flex flex-col items-center w-full max-w-lg p-6 text-center bg-white border-2 border-blue-400 border-dashed cursor-pointer rounded-xl">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
       <path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
     </svg>
 
-    <h2 class="w-full mt-4 text-xl font-medium text-gray-700 tracking-wide">Format de fichiers</h2>
+    <h2 class="w-full mt-4 text-xl font-medium tracking-wide text-gray-700">Format de fichiers</h2>
 
-    <p class="w-full mt-2 text-gray-500 tracking-wide"> file PNG, JPG or JPEG. </p>
+    <p class="w-full mt-2 tracking-wide text-gray-500"> file PNG, JPG or JPEG. </p>
 
     <input id="dropzone-file" class="hidden" type="file" [name]="inputName" [multiple]="multiples" accept="image/*" (change)="selectFile($event)">
 
   </label>
 
   <ul *ngIf="uploadedFiles.length" class="grid grid-cols-2 gap-4">
-      <li *ngFor="let file of uploadedFiles">
+      <li *ngFor="let fileUpload of uploadedFiles">
         <div>
-          <img [src]="file.src" [title]="file.name" alt="{{file.name}}" class="h-32">
-          <span>{{file.name}}</span>
+          <img [src]="fileUpload.base64Src" [title]="fileUpload.file.name" alt="{{fileUpload.file.name}}" class="h-32">
+          <span>{{fileUpload.file.name}}</span>
         </div>
       </li>
     </ul>

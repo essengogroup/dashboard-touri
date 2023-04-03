@@ -11,6 +11,9 @@ import {Departement} from "../model/departement";
 })
 export class ActiviteService {
   readonly BASE_URL = `${environment.baseUrl}/activite`;
+
+  private formData:FormData = new FormData();
+
   constructor(private httpClient:HttpClient) { }
 
   getActivites():Observable<Root<Activite[]>>{
@@ -22,13 +25,21 @@ export class ActiviteService {
   }
 
   createActivite(activite:Activite):Observable<any>{
-    return this.httpClient.post<Root<Activite>>(`${this.BASE_URL}`,activite,{
+    this.formData.append('name', activite.name.trim());
+    this.formData.append('description',activite.description.trim());
+    this.formData.append('image_path', activite.image_path);
+
+    return this.httpClient.post<Root<Activite>>(`${this.BASE_URL}`,this.formData,{
       reportProgress: true,
       observe: 'events'});
   }
 
   updateActivite(activite:Activite):Observable<any>{
-    return this.httpClient.put<Root<Activite>>(`${this.BASE_URL}/${activite.id}`,activite,{
+    this.formData.append('id', activite.id.toString());
+    this.formData.append('name', activite.name.trim());
+    this.formData.append('description',activite.description.trim());
+    this.formData.append('image_path', activite.image_path);
+    return this.httpClient.post<Root<Activite>>(`${this.BASE_URL}/${activite.id}`,this.formData,{
       reportProgress: true,
       observe: 'events'});
   }

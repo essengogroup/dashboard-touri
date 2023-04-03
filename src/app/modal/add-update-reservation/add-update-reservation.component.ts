@@ -1,3 +1,4 @@
+import { MessageService } from 'primeng/api';
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ReservationService} from "../../service/reservation.service";
@@ -34,7 +35,8 @@ export class AddUpdateReservationComponent implements OnInit {
     private siteService:SiteService,
     private activiteService:ActiviteService,
     private config: DynamicDialogConfig,
-    private userService:UserService
+    private userService:UserService,
+    private messageService:MessageService
   ) { }
 
   ngOnInit(): void {
@@ -90,7 +92,7 @@ export class AddUpdateReservationComponent implements OnInit {
       this.reservation.user_id=user.id
       this.reservationService.createReservation(this.reservation).subscribe({
         next:(res:Root<Reservation>)=>{
-          console.log("response ==> ",res)
+          this.messageService.add({severity:'success', summary:'Succès', detail:'La réservation a bien été créer'})
         }
       })
     })

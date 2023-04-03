@@ -96,6 +96,8 @@ export class MediaComponent implements OnInit,OnDestroy {
       icon: 'pi pi-info-circle',
       accept: () => {
         this.mediaService.deleteMedia(media.id).subscribe((res:Root<Departement>)=>{
+          console.log(res);
+          
           this.fetchMedias()
           this.messageService.add({severity:'success', summary: 'Succès', detail: `Cette ${media.type} a été supprimé avec succès`});
         })

@@ -5,7 +5,7 @@ export interface Activite {
   id: number;
   name: string;
   description: string;
-  image_path: string;
+  image_path: string|File;
   created_at: string;
   updated_at: string;
   pivot: Pivot|undefined|null;

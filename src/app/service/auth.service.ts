@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {environment} from "../../environments/environment";
 import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
-import { User} from "../model/user";
+import { Role, User} from "../model/user";
 import {Router} from "@angular/router";
 import {catchError, Observable, Subscription, throwError} from "rxjs";
 import {Root} from "../model/root";
@@ -64,6 +64,16 @@ export class AuthService {
   get isLoggedIn(): boolean {
     let authToken = localStorage.getItem('access_token');
     return authToken !== null ? true : false;
+  }
+
+  get isAdmin():boolean{
+    let checkIsAdmin : boolean = false;
+    this.currentUserValue.roles.forEach((role:Role) => {
+      if(role.name === 'admin'){
+        checkIsAdmin = true
+      }
+    })
+    return checkIsAdmin;
   }
 
   doLogout() {

@@ -5,6 +5,7 @@ import {Departement} from "../../model/departement";
 import {DepartementService} from "../../service/departement.service";
 import {HttpEvent, HttpEventType} from "@angular/common/http";
 import {MessageService} from "primeng/api";
+import { FileUpload } from 'src/app/model/file-upload';
 
 @Component({
   selector: 'app-add-update-departement',
@@ -16,7 +17,7 @@ export class AddUpdateDepartementComponent implements OnInit,OnDestroy {
   departementForm!:FormGroup;
   action:string ='';
   departement!:Departement;
-  file:any[] = [];
+  file:FileUpload[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -62,7 +63,7 @@ export class AddUpdateDepartementComponent implements OnInit,OnDestroy {
 
     if(this.action==='add'){
 
-      this.departement.image_path = this.file.length == 0?"null":this.file[0].src;
+      this.departement.image_path = this.file.length == 0?"null":this.file[0].file;
 
       this.departementService.createDepartement(this.departement).subscribe(
         (event: HttpEvent<any>) => {
@@ -78,14 +79,20 @@ export class AddUpdateDepartementComponent implements OnInit,OnDestroy {
               console.log(`Uploaded! ${d}%`);
               break;
             case HttpEventType.Response:
-              console.log('User successfully created!', event.body);
+              if(event.status==200){
+                this.messageService.add({severity:'success', summary:'Succès', detail:'Le département a été créer avec succès'});
+                this.ref.close();
+              }
+              if(event.statusText!== 'OK'){
+                this.messageService.add({severity:'error', summary:'Erreur', detail:'Un problème est survenu lors de la création du département'})
+              }
           }
         })
     }
 
     if (this.action === 'update') {
 
-      this.departement.image_path =this.file.length==0?this.departement.image_path:this.file[0].src;
+      this.departement.image_path =this.file.length==0?this.departement.image_path:this.file[0].file;
 
       this.departementService.updateDepartement(this.departement).subscribe(
         (event: HttpEvent<any>) => {
@@ -101,11 +108,16 @@ export class AddUpdateDepartementComponent implements OnInit,OnDestroy {
               console.log(`Uploaded! ${d}%`);
               break;
             case HttpEventType.Response:
-              console.log('User successfully created!', event.body);
+              if(event.status==200){
+                this.messageService.add({severity:'success', summary:'Succès', detail:'Le departement a été modifier avec succès'});
+                this.ref.close();
+              }
+              if(event.statusText!== 'OK'){
+                this.messageService.add({severity:'error', summary:'Erreur', detail:'Un problème est survenu lors de la modification du département'})
+              }
           }
         })
     }
-    this.ref.close()
   }
 
   getFiles($event: any[]) {

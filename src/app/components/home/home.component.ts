@@ -1,3 +1,4 @@
+import { RoleEnum } from './../../model/role-enum';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {UserService} from "../../service/user.service";
 import {User} from "../../model/user";
@@ -81,6 +82,21 @@ export class HomeComponent implements OnInit , OnDestroy{
         break
       case Status.CANCELED:
         style = {'bg-orange-50  text-orange-600':true}
+        break
+      default:
+        style={'bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600':true}
+    }
+    return style;
+  }
+  
+  getRoleClass(status:string) {
+    let style ={};
+    switch (status) {
+      case RoleEnum.ADMIN:
+        style = {'bg-indigo-50 text-indigo-600':true}
+        break
+      case RoleEnum.USER:
+        style = {'bg-green-50 text-green-600':true}
         break
       default:
         style={'bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600':true}

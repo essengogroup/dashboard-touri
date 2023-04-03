@@ -37,6 +37,8 @@ import { OthersComponent } from './components/others/others.component';
 import { TruncatePipe } from './shared/truncate.pipe';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { FilterPipe } from './shared/filter.pipe';
+import { LoadBeforeAuthGuard } from './shared/load-before-auth.guard';
+import { AuthGuard } from './shared/auth.guard';
 
 @NgModule({
   declarations: [

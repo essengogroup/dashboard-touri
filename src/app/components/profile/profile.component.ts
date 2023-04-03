@@ -5,6 +5,7 @@ import {AuthService} from "../../service/auth.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {User} from "../../model/user";
 import {Root} from "../../model/root";
+import { FileUpload } from 'src/app/model/file-upload';
 
 @Component({
   selector: 'app-profile',
@@ -23,7 +24,7 @@ export class ProfileComponent implements OnInit,OnDestroy {
 
   isVisibilbleForm:boolean = false
 
-  file:any[] = [];
+  file:FileUpload[] = [];
 
   constructor(
     private userService:UserService,
@@ -60,10 +61,12 @@ export class ProfileComponent implements OnInit,OnDestroy {
     } as User;
 
 
-    user.profile_picture = this.file.length == 0?this.currentUser.profile_picture:this.file[0].src;
+    user.profile_picture = this.file.length == 0?this.currentUser.profile_picture:this.file[0].file;
 
     this.userService.updateUser(user).subscribe({
       next: (res:Root<User>)=>{
+        console.log(res);
+        
         this.authService.setUserToLocalStorage(res.data)
         this.onShowForm()
         this.ngOnInit()
@@ -90,6 +93,8 @@ export class ProfileComponent implements OnInit,OnDestroy {
   }
 
   getFile($event: any[]) {
+    console.log(" res form ",$event);
+    
     this.file = $event
   }
 }

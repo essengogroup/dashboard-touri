@@ -7,6 +7,9 @@ import {SiteService} from "../../service/site.service";
 import {Site} from "../../model/site";
 import {Subscription} from "rxjs";
 import {Root} from "../../model/root";
+import { HttpResponse } from '@angular/common/http';
+import {MessageService} from "primeng/api";
+import { FileUpload } from 'src/app/model/file-upload';
 
 @Component({
   selector: 'app-add-update-media',
@@ -20,14 +23,15 @@ export class AddUpdateMediaComponent implements OnInit ,OnDestroy{
   sites:Site[]=[]
   subscription : Subscription = new Subscription()
 
-  file:any[] = [];
+  file:FileUpload[] = [];
 
   constructor(
     private mediaService:MediaService,
     private formBuilder: FormBuilder,
     private ref: DynamicDialogRef,
     private config: DynamicDialogConfig,
-    private siteService:SiteService
+    private siteService:SiteService,
+    private messageService:MessageService,
   ) {}
 
   ngOnInit(): void {
@@ -64,11 +68,18 @@ export class AddUpdateMediaComponent implements OnInit ,OnDestroy{
     this.media.is_main = this.mediaForm.value.is_main;
 
     if (this.action === 'add') {
-      this.media.path = this.file.length == 0?"null":this.file[0].src;
+      this.media.path = this.file.length == 0?"null":this.file[0].file;
       this.mediaService.createMedia(this.media).subscribe({
         next:(res)=>{
-          console.log("Res ==>",res)
-          this.ref.close();
+          if(res instanceof HttpResponse){
+            if(res.status==200){
+              this.messageService.add({severity:'success', summary:'Succès', detail:'Le Media a été créer avec succès'});
+              this.ref.close();
+            }
+            if(res.statusText!== 'OK'){
+              this.messageService.add({severity:'error', summary:'Erreur', detail:'Un problème est survenu lors de la création du media'})
+            }
+          }
         },
         error:(err)=>console.error(err)
       })

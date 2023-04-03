@@ -5,6 +5,7 @@ import {ActiviteService} from "../../service/activite.service";
 import {Activite} from "../../model/activite";
 import {MessageService} from "primeng/api";
 import {HttpEvent, HttpEventType} from "@angular/common/http";
+import { FileUpload } from 'src/app/model/file-upload';
 
 @Component({
   selector: 'app-add-update-activite',
@@ -15,7 +16,7 @@ export class AddUpdateActiviteComponent implements OnInit {
   activiteForm!:FormGroup;
   activite!:Activite;
   action:string =""
-  file:any[] = [];
+  file:FileUpload[] = [];
 
   constructor(
     private activiteService:ActiviteService,
@@ -58,7 +59,7 @@ export class AddUpdateActiviteComponent implements OnInit {
     this.activite.description = this.activiteForm.value.description;
 
     if (this.action==="add"){
-      this.activite.image_path = this.file.length == 0?"null":this.file[0].src;
+      this.activite.image_path = this.file.length == 0?"null":this.file[0].file;
 
       this.activiteService.createActivite(this.activite).subscribe(
         (event: HttpEvent<any>) => {
@@ -74,13 +75,19 @@ export class AddUpdateActiviteComponent implements OnInit {
               console.log(`Uploaded! ${d}%`);
               break;
             case HttpEventType.Response:
-              console.log('User successfully created!', event.body);
+              if(event.status==200){
+                this.messageService.add({severity:'success', summary:'Succès', detail:'Cette activité a été créer avec succès'});
+                this.ref.close();
+              }
+              if(event.statusText!== 'OK'){
+                this.messageService.add({severity:'error', summary:'Erreur', detail:'Cette activité existe déjà'})
+              }
           }
         })
     }
 
     if (this.action==="update"){
-      this.activite.image_path =this.file.length==0?this.activite.image_path:this.file[0].src;
+      this.activite.image_path =this.file.length==0?this.activite.image_path:this.file[0].file;
 
       this.activiteService.updateActivite(this.activite).subscribe(
         (event: HttpEvent<any>) => {
@@ -96,12 +103,16 @@ export class AddUpdateActiviteComponent implements OnInit {
               console.log(`Uploaded! ${d}%`);
               break;
             case HttpEventType.Response:
-              console.log('User successfully created!', event.body);
+              if(event.status==200){
+                this.messageService.add({severity:'success', summary:'Succès', detail:'Cette activité a été modifier avec succès'});
+                this.ref.close();
+              }
+              if(event.statusText!== 'OK'){
+                this.messageService.add({severity:'error', summary:'Erreur', detail:'Cette activité existe déjà'})
+              }
           }
         })
     }
-
-    this.ref.close()
 
   }
 

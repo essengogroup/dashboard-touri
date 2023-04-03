@@ -75,8 +75,6 @@ export class AddUpdateSiteComponent implements OnInit {
       })
     }
 
-    console.log(this.site)
-
     this.activiteForm = this.formBuilder.group({
       activites: new FormControl([],Validators.required),
       price: ['', [Validators.required]],
@@ -110,9 +108,10 @@ export class AddUpdateSiteComponent implements OnInit {
     siteDate.date_ = moment(this.siteDateForm.value.date_).format("YYYY-MM-DD")
 
     this.siteDateService.addDateToSite(siteDate).subscribe({
-      next:(res)=>this.messageService.add({severity:'success', summary:'Succès', detail:'Cette date a été ajouté à ce site'}),
-      error:(err)=>this.messageService.add({severity:'error', summary:'Erreur', detail:'Une erreur s\'est produite'})
-
+      error:(err)=>this.messageService.add({severity:'error', summary:'Erreur', detail:'Une erreur s\'est produite'}),
+      complete:()=> {
+        this.messageService.add({severity:'success', summary:'Succès', detail:'La date a bien été ajouté au site'})
+      },
     })
 
   }
@@ -145,7 +144,6 @@ export class AddUpdateSiteComponent implements OnInit {
     if (!this.siteForm.valid) {
       return
     }
-    console.log(this.siteForm.value);
 
     this.site.name = this.siteForm.value.name
     this.site.description = this.siteForm.value.description
@@ -160,10 +158,9 @@ export class AddUpdateSiteComponent implements OnInit {
             this.site = res.data
 
             this.siteForm.value.activites.map((activiteItem:Activite)=>{
-              console.log(activiteItem.id," <==> ",res.data.id)
               this.siteService.addActiviteToSite(res.data.id,this.siteForm.value.price,activiteItem.id)
                 .subscribe({
-                  next: (res) => console.log("==>",res),
+                  next: (res) => console.log("Activite added to site"),
                   error: err => console.log(err)
                 })
             })

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {catchError, Observable, of, tap} from "rxjs";
 import {User} from "../model/user";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Root} from "../model/root";
 
@@ -10,6 +10,8 @@ import {Root} from "../model/root";
 })
 export class UserService {
   readonly BASE_URL = `${environment.baseUrl}/user`;
+
+  private formData:FormData = new FormData();
 
   constructor(private httpClient: HttpClient) { }
 
@@ -28,7 +30,13 @@ export class UserService {
   }
 
   updateUser(user: User): Observable<Root<User>>{
-    return this.httpClient.put<Root<User>>(`${this.BASE_URL}/${user.id}`, user);
+    this.formData.append('id', user.id.toString());
+    this.formData.append('full_name', user.full_name);
+    this.formData.append('address', user.address!);
+    this.formData.append('phone', user.phone!);
+    this.formData.append('profile_picture', user.profile_picture!);
+    
+    return this.httpClient.post<Root<User>>(`${this.BASE_URL}/${user.id}`, this.formData);
   }
 
   deleteUser(id: number): Observable<Root<User>>{

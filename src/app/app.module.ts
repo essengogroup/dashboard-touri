@@ -39,6 +39,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { FilterPipe } from './shared/filter.pipe';
 import { LoadBeforeAuthGuard } from './shared/load-before-auth.guard';
 import { AuthGuard } from './shared/auth.guard';
+import {ProgressBarModule} from 'primeng/progressbar';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { AuthGuard } from './shared/auth.guard';
         BrowserAnimationsModule,
         NgbModule,
         NgxPaginationModule,
+        ProgressBarModule
     ],
   providers: [
     {

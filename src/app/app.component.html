@@ -1,1 +1,8 @@
+<p-progressBar 
+*ngIf="navigationService.isLoading && navigationService.isDeterminate"  
+[value]="navigationService.progressValue"></p-progressBar>
+
+<p-progressBar 
+mode="indeterminate"
+*ngIf="navigationService.isLoading && !navigationService.isDeterminate"></p-progressBar>
 <router-outlet></router-outlet>

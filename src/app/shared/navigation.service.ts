@@ -7,6 +7,9 @@ export class NavigationService {
 
    currentItemSideBarName:string="Tableau de bord";
    searchText:string = '';
+   isLoading:boolean = false;
+   isDeterminate:boolean = true;
+   progressValue:number = 0;
 
   constructor() { }
 
@@ -24,4 +27,11 @@ export class NavigationService {
   get currentSearchText():string{
     return this.searchText;
   }
+
+  resetLoading():void{
+    this.isDeterminate=true;
+    this.isLoading=false;
+  }
+
+
 }

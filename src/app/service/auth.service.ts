@@ -1,6 +1,8 @@
+import { MessageService } from 'primeng/api';
+import { NavigationService } from './../shared/navigation.service';
 import { Injectable } from '@angular/core';
 import {environment} from "../../environments/environment";
-import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse, HttpEventType, HttpHeaders} from "@angular/common/http";
 import { Role, User} from "../model/user";
 import {Router} from "@angular/router";
 import {catchError, Observable, Subscription, throwError} from "rxjs";
@@ -15,35 +17,91 @@ export class AuthService {
   headers = new HttpHeaders().set('Content-Type', 'application/json');
   currentUser:User = {} as User;
 
-  constructor(private httpClient: HttpClient,public router: Router) {
+  constructor(
+    private httpClient: HttpClient,
+    public router: Router,
+    private navigationService:NavigationService,
+    private messageService:MessageService
+    ) {
     this.currentUser = JSON.parse(localStorage.getItem('user')!);
   }
 
   signUp(user: User): Subscription {
     let api = `${this.BASE_URL}/register`;
-    return this.httpClient.post<Root<User>>(api, user)
+    return this.httpClient.post<Root<User>>(api, user,{
+      reportProgress: true,
+      observe: 'events'})
       .pipe(catchError(this.handleError))
-      .subscribe((res:any) => {
-        localStorage.setItem('access_token', res.token!);
-        this.setUserToLocalStorage(res.user);
-        this.getUserProfile(res.user.id).subscribe((res:Root<User>) => {
-          this.currentUser = res.data;
-          this.router.navigate(['dashboard','profile']).then(() => {});
-        });
+      .subscribe((event:any) => {
+        switch (event.type) {
+          case HttpEventType.Sent:
+            this.navigationService.isLoading = true;
+            break;
+          case HttpEventType.ResponseHeader:
+            break;
+          case HttpEventType.UploadProgress:
+            let d  = Math.round(event.loaded / event.total! * 100);
+            this.navigationService.progressValue = d;
+            break;
+          case HttpEventType.Response:
+
+            this.navigationService.isLoading = false;
+
+            if(event.status==200){
+              const res = event.body;
+              localStorage.setItem('access_token', res.token!);
+              this.setUserToLocalStorage(res.user);
+              this.getUserProfile(res.user.id).subscribe((res:Root<User>) => {
+                this.currentUser = res.data;
+                this.router.navigate(['dashboard','profile']).then(() => {
+                  this.messageService.add({severity:'success', summary:'Succès', detail:`Bienvenu(e) ${this.currentUser.full_name} `});
+                });
+              });
+            }
+            if(event.statusText!== 'OK'){
+              this.messageService.add({severity:'error', summary:'Erreur', detail:'Cette activité existe déjà'})
+            }
+        }
+       
     });
   }
 
   signIn(email:string,password:string) : Subscription {
     const user = {email, password}
 
-    return this.httpClient.post<Root<User>>(`${this.BASE_URL}/login`, user)
-      .subscribe((res:any) => {
-          localStorage.setItem('access_token', res.token!);
-          this.setUserToLocalStorage(res.user);
-          this.getUserProfile(res.user.id).subscribe((res:Root<User>) => {
-            this.currentUser = res.data;
-            this.router.navigate(['dashboard','profile']).then(() => {});
-          });
+    return this.httpClient.post<Root<User>>(`${this.BASE_URL}/login`, user,{
+      reportProgress: true,
+      observe: 'events'})
+      .subscribe((event:any) => {
+          switch (event.type) {
+            case HttpEventType.Sent:
+              this.navigationService.isLoading = true;
+              break;
+            case HttpEventType.ResponseHeader:
+              break;
+            case HttpEventType.UploadProgress:
+              let d  = Math.round(event.loaded / event.total! * 100);
+              this.navigationService.progressValue = d;
+              break;
+            case HttpEventType.Response:
+
+              this.navigationService.isLoading = false;
+
+              if(event.status==200){
+                const res = event.body;
+                localStorage.setItem('access_token', res.token!);
+                this.setUserToLocalStorage(res.user);
+                this.getUserProfile(res.user.id).subscribe((res:Root<User>) => {
+                  this.currentUser = res.data;
+                  this.router.navigate(['dashboard','profile']).then(() => {
+                    this.messageService.add({severity:'success', summary:'Succès', detail:`Bienvenu(e) ${this.currentUser.full_name} `});
+                  });
+                });
+              }
+              if(event.statusText!== 'OK'){
+                this.messageService.add({severity:'error', summary:'Erreur', detail:'Cette activité existe déjà'})
+              }
+          }
         }
       );
   }
@@ -68,11 +126,14 @@ export class AuthService {
 
   get isAdmin():boolean{
     let checkIsAdmin : boolean = false;
-    this.currentUserValue.roles.forEach((role:Role) => {
-      if(role.name === 'admin'){
-        checkIsAdmin = true
-      }
-    })
+    if(this.currentUserValue!== null){
+      this.currentUserValue.roles.forEach((role:Role) => {
+        if(role.name === 'admin'){
+          checkIsAdmin = true
+        }
+      })
+    }
+    
     return checkIsAdmin;
   }
 

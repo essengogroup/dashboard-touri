@@ -1,14 +1,14 @@
 <div class="h-full p-8">
-  <div class="bg-white rounded-lg shadow-xl pb-4">
-    <div class="w-full h-[120px]">
-      <img alt="" src="https://vojislavd.com/ta-template-demo/assets/img/profile-background.jpg" class="w-full h-full rounded-tl-lg rounded-tr-lg">
+  <div class="pb-4 bg-white rounded-lg shadow-xl">
+    <div class="w-full h-[200px]">
+      <img alt="gare de pointe-noire" src="assets/pngare.jpeg" class="object-cover w-full h-full rounded-tl-lg rounded-tr-lg">
     </div>
     <div class="flex flex-col items-center -mt-20">
       <img src="{{currentUser.profile_picture?currentUser.profile_picture:'https://vojislavd.com/ta-template-demo/assets/img/profile.jpg'}}"
-           class="h-40 border-4 border-white rounded-full bg-white shadow-md" alt="{{currentUser.full_name}}">
-      <div class="flex items-center space-x-2 mt-2">
+           class="h-40 bg-white border-4 border-white rounded-full shadow-md" alt="{{currentUser.full_name}}">
+      <div class="flex items-center mt-2 space-x-2">
         <p class="text-2xl">{{currentUser.full_name}}</p>
-        <span class="bg-blue-500 rounded-full p-1" title="Verified">
+        <span class="p-1 bg-blue-500 rounded-full" title="Verified">
                         <svg xmlns="http://www.w3.org/2000/svg" class="text-gray-100 h-2.5 w-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"></path>
                         </svg>
@@ -16,66 +16,66 @@
       </div>
       <p class="text-sm text-gray-500">CONGO Brazzaville</p>
     </div>
-    <div class="flex-1 flex flex-col items-center lg:items-end justify-end px-8 mt-2">
-      <div class="flex items-center space-x-4 mt-2">
+    <div class="flex flex-col items-center justify-end flex-1 px-8 mt-2 lg:items-end">
+      <div class="flex items-center mt-2 space-x-4">
         <button pButton (click)="onShowForm()" type="button" label="Modifier mon compte" icon="pi pi-user-edit" class="p-button" badge="4" badgeClass="p-badge-info"></button>
       </div>
     </div>
   </div>
 
-  <div class="my-4 flex flex-col 2xl:flex-row space-y-4 2xl:space-y-0 2xl:space-x-4">
-    <div *ngIf="!isVisibilbleForm" class="w-full flex flex-col 2xl:w-1/3">
-      <div class="flex-1 bg-white rounded-lg shadow-xl p-8">
-        <h4 class="text-xl text-gray-900 font-bold">Personal Info</h4>
+  <div class="flex flex-col my-4 space-y-4 2xl:flex-row 2xl:space-y-0 2xl:space-x-4">
+    <div *ngIf="!isVisibilbleForm" class="flex flex-col w-full 2xl:w-1/3">
+      <div class="flex-1 p-8 bg-white rounded-lg shadow-xl">
+        <h4 class="text-xl font-bold text-gray-900">Personal Info</h4>
         <ul class="mt-2 text-gray-700">
-          <li class="flex border-y py-2">
+          <li class="flex py-2 border-y">
             <span class="font-bold w-28">Nom complet:</span>
             <span class="text-gray-700">{{currentUser.full_name}}</span>
           </li>
-          <li class="flex border-b py-2">
-            <span class="font-bold w-24">Adresse:</span>
+          <li class="flex py-2 border-b">
+            <span class="w-24 font-bold">Adresse:</span>
             <span class="text-gray-700">{{currentUser.address}}</span>
           </li>
-          <li class="flex border-b py-2">
-            <span class="font-bold w-24">Mobile:</span>
+          <li class="flex py-2 border-b">
+            <span class="w-24 font-bold">Mobile:</span>
             <span class="text-gray-700">{{currentUser.phone}}</span>
           </li>
-          <li class="flex border-b py-2">
-            <span class="font-bold w-24">Email:</span>
+          <li class="flex py-2 border-b">
+            <span class="w-24 font-bold">Email:</span>
             <span class="text-gray-700">{{currentUser.email}}</span>
           </li>
         </ul>
       </div>
     </div>
-    <section *ngIf="isVisibilbleForm" class="w-full flex flex-col 2xl:w-1/3  items-center justify-center">
-      <form (ngSubmit)="onSubmit()" [formGroup]="profileForm" class=" bg-white rounded-lg shadow-xl px-8 w-full flex flex-col items-center">
-        <h4 class="text-xl text-gray-900 font-bold my-2">Modifier mes  info personnelles</h4>
+    <section *ngIf="isVisibilbleForm" class="flex flex-col items-center justify-center w-full 2xl:w-1/3">
+      <form (ngSubmit)="onSubmit()" [formGroup]="profileForm" class="flex flex-col items-center w-full px-8 bg-white rounded-lg shadow-xl ">
+        <h4 class="my-2 text-xl font-bold text-gray-900">Modifier mes  info personnelles</h4>
 
         <div class="w-full">
           <label for="lastName" class="sr-only">lastName</label>
-          <input formControlName="lastName" [ngClass]="{'border-red-300 text-red-900 placeholder-red-500 focus:border-red-500':(lastName!.invalid && (lastName!.dirty || lastName!.touched))}" id="lastName" name="lastName" type="text"  class="relative block w-full appearance-none  rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="nom">
+          <input formControlName="lastName" [ngClass]="{'border-red-300 text-red-900 placeholder-red-500 focus:border-red-500':(lastName!.invalid && (lastName!.dirty || lastName!.touched))}" id="lastName" name="lastName" type="text"  class="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-none appearance-none rounded-t-md focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="nom">
         </div>
 
         <div class="w-full">
           <label for="firstName" class="sr-only">firstName</label>
-          <input formControlName="firstName" [ngClass]="{'border-red-300 text-red-900 placeholder-red-500 focus:border-red-500':(firstName!.invalid && (firstName!.dirty || firstName!.touched))}" id="firstName" name="firstName" type="text"  class="relative block w-full appearance-none  rounded-none border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="prenom">
+          <input formControlName="firstName" [ngClass]="{'border-red-300 text-red-900 placeholder-red-500 focus:border-red-500':(firstName!.invalid && (firstName!.dirty || firstName!.touched))}" id="firstName" name="firstName" type="text"  class="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-none appearance-none focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="prenom">
         </div>
 
         <div class="w-full">
           <label for="address" class="sr-only">address</label>
-          <input formControlName="address" [ngClass]="{'border-red-300 text-red-900 placeholder-red-500 focus:border-red-500':(address!.invalid && (address!.dirty || address!.touched))}" id="address" name="address" type="text"  class="relative block w-full appearance-none  rounded-none border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="adresse">
+          <input formControlName="address" [ngClass]="{'border-red-300 text-red-900 placeholder-red-500 focus:border-red-500':(address!.invalid && (address!.dirty || address!.touched))}" id="address" name="address" type="text"  class="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-none appearance-none focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="adresse">
         </div>
 
         <div class="w-full">
           <label for="phone" class="sr-only">phone</label>
-          <input formControlName="phone" [ngClass]="{'border-red-300 text-red-900 placeholder-red-500 focus:border-red-500':(phone!.invalid && (phone!.dirty || phone!.touched))}" id="phone" name="phone" type="phone"  class="relative block w-full appearance-none  rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="phone">
+          <input formControlName="phone" [ngClass]="{'border-red-300 text-red-900 placeholder-red-500 focus:border-red-500':(phone!.invalid && (phone!.dirty || phone!.touched))}" id="phone" name="phone" type="phone"  class="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-none appearance-none rounded-b-md focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="phone">
         </div>
 
         <app-upload  (fileEmitter)="getFile($event)"></app-upload>
 
-        <button type="submit" class="group relative my-5 flex w-1/2 justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+        <button type="submit" class="relative flex justify-center w-1/2 px-4 py-2 my-5 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md group hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
           <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-            <svg class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <svg class="w-5 h-5 text-indigo-500 group-hover:text-indigo-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
               <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" />
             </svg>
           </span>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavigationService } from './shared/navigation.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'dashboard-touri';
+  constructor(public navigationService:NavigationService) {}
 }

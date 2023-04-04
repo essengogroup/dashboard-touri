@@ -72,7 +72,7 @@ export class AddUpdateMediaComponent implements OnInit ,OnDestroy{
       this.mediaService.createMedia(this.media).subscribe({
         next:(res)=>{
           if(res instanceof HttpResponse){
-            if(res.status==200){
+            if(res.status==201 || res.statusText!== 'OK'){
               this.messageService.add({severity:'success', summary:'Succès', detail:'Le Media a été créer avec succès'});
               this.ref.close();
             }

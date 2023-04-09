@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseUrl:'https://touri.bgrfacile.com/api/v1'
+  baseUrl:'https://api-touri.weegosoft.com/api/v1'
 };

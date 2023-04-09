@@ -2,6 +2,11 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.5.
 
+## Deploy server
+```
+ng deploy --base-href=repoName
+```
+
 ## Development server
 
 Run for a dev server.

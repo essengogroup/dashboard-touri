@@ -227,7 +227,7 @@
             <td class="px-6 py-4">{{reservation.site.name}}</td>
             <td class="px-6 py-4">{{reservation.nb_personnes}}</td>
             <td class="px-6 py-4">{{reservation.price| currency:'XAF'}}</td>
-            <td class="px-6 py-4">{{reservation.site_date.date_|date:'dd-MM-YY'}}</td>
+            <td class="px-6 py-4">{{reservation.site_date!=null?(reservation.site_date.date_|date:'dd-MM-YY') : 'Non précisé'}}</td>
             <td class="px-6 py-4">
               <div class="flex gap-2">
                   <span [ngClass]="getClass(reservation.status)" class="inline-flex items-center gap-1 px-2 py-1 text-xs font-semibold text-blue-600 rounded-full bg-blue-50">

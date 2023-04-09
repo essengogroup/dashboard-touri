@@ -6,10 +6,6 @@ ARG VERSION=1.0.0
 
 ENV NODE_ENV=${NODE_ENV}
 
-MAINTAINER "Essengogroup"
-
-LABEL version=${VERSION}, name="nodejs", description="Nodejs image"
-
 WORKDIR /app
 
 COPY package*.json .
